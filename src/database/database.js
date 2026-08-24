@@ -1,9 +1,17 @@
 const mongoose = require("mongoose");
 const { mongodbUri } = require("../config/env");
 
-const database = async function () {
+const connectDatabase = async function () {
   await mongoose.connect(mongodbUri);
   console.log("Database is connected");
 };
 
-module.exports = database;
+const disconnectDatabase = async function () {
+  await mongoose.disconnect();
+  console.log("connection closed");
+};
+
+module.exports = {
+  connectDatabase,
+  disconnectDatabase,
+};
