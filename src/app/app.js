@@ -18,10 +18,16 @@ app.get("/test-error", (req, res, next) => {
 const errorHandler = (err, req, res, next) => {
   console.error(err.stack);
 
-  const statusCode = err.statusCode || 500;
-  res.status(statusCode).json({
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      error: true,
+      message: err.message,
+    });
+  }
+
+  return res.status(500).json({
     error: true,
-    message: err.message || "Internal Server Error",
+    message: "Internal Server Error",
   });
 };
 
