@@ -7,6 +7,11 @@ const eventSchema = new Schema(
       required: true,
     },
 
+    venueId: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+    },
+
     title: {
       type: String,
       required: true,
@@ -20,18 +25,18 @@ const eventSchema = new Schema(
     },
 
     startDateTime: {
-      type: String,
+      type: Date,
       required: true,
     },
 
     endDateTime: {
-      type: String,
+      type: Date,
       required: true,
     },
 
     status: {
       type: String,
-      enums: ["DRAFT", "PUBLISHED", "CANCELLED", "COMPLETED"],
+      enum: ["DRAFT", "PUBLISHED", "CANCELLED", "COMPLETED"],
       default: "DRAFT",
     },
   },
