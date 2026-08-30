@@ -10,7 +10,10 @@ const startServer = async function () {
       console.log(`Express server is running on port ${port}`);
     });
 
+    let shuttingDown = false;
     const shutdown = () => {
+      if (shuttingDown) return;
+      shuttingDown = true;
       console.log("Shutting down gracefully");
       server.close(async () => {
         try {
@@ -27,7 +30,6 @@ const startServer = async function () {
     process.on("SIGINT", shutdown);
   } catch (err) {
     console.error(err);
-    process.exit(1);
   }
 };
 
