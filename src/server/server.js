@@ -15,10 +15,17 @@ const startServer = async function () {
       if (shuttingDown) return;
       shuttingDown = true;
       console.log("Shutting down gracefully");
+      const forceExit = setTimeout(() => {
+        console.error("Forcing shutdown");
+        process.exit(1);
+      }, 10000);
       server.close(async () => {
         try {
-          console.log("Server closed. Cleanup complete.");
+          console.log("Server closed.");
           await disconnectDatabase();
+          console.log("Database disconnected");
+          console.log("Cleanup complete");
+          clearTimeout(forceExit);
           process.exit(0);
         } catch (err) {
           console.error(err);
@@ -30,6 +37,7 @@ const startServer = async function () {
     process.on("SIGINT", shutdown);
   } catch (err) {
     console.error(err);
+    process.exit(1);
   }
 };
 
