@@ -23,12 +23,12 @@ const validateEvent = [
     .notEmpty()
     .withMessage("Start Date time is required")
     .isISO8601()
-    .withMessage("Date must be in ISO8601 format"),
+    .withMessage("Start date-time must be in ISO 8601 format"),
   body("endDateTime")
     .notEmpty()
-    .withMessage("Start Date time is required")
+    .withMessage("End Date time is required")
     .isISO8601()
-    .withMessage("Date must be in ISO8601 format"),
+    .withMessage("End date-time must be in ISO 8601 format"),
 ];
 
 module.exports = validateEvent;
