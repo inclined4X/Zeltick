@@ -15,11 +15,6 @@ const validateEvent = [
     .withMessage("Description must be a string")
     .isLength({ min: 10, max: 2000 })
     .withMessage("Description must be between 10 and 2000 characters"),
-  body("organizerId")
-    .notEmpty()
-    .withMessage("Organizer Id is required")
-    .isInt({ min: 1 })
-    .withMessage("Id must be a positive integer"),
   body("venueId")
     .notEmpty()
     .withMessage("Id for this field is required")
