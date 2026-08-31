@@ -5,11 +5,13 @@ const eventSchema = new Schema(
     organizerId: {
       type: mongoose.Schema.ObjectId,
       required: true,
+      ref: "Organizer",
     },
 
     venueId: {
       type: mongoose.Schema.ObjectId,
       required: true,
+      ref: "Venue",
     },
 
     title: {
