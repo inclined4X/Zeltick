@@ -18,15 +18,16 @@ const validateEvent = [
   body("venueId")
     .notEmpty()
     .withMessage("Id for this field is required")
-    .isMongoId(),
+    .isMongoId()
+    .withMessage("Venue ID must be a valid MongoDB ObjectId"),
   body("startDateTime")
     .notEmpty()
-    .withMessage("Start Date time is required")
+    .withMessage("Start date-time is required")
     .isISO8601()
     .withMessage("Start date-time must be in ISO 8601 format"),
   body("endDateTime")
     .notEmpty()
-    .withMessage("End Date time is required")
+    .withMessage("End date-time is required")
     .isISO8601()
     .withMessage("End date-time must be in ISO 8601 format"),
 ];
