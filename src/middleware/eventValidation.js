@@ -18,25 +18,19 @@ const validateEvent = [
   body("venueId")
     .notEmpty()
     .withMessage("Id for this field is required")
-    .isInt({ min: 1 })
-    .withMessage("Id must be a positive integer"),
+    .isObject()
+    .withMessage("Has to be an objectId"),
   body("startDateTime")
     .notEmpty()
     .withMessage("Start Date time is requred")
     .isISO8601()
-    .isDate({ format: "YYYY/MM/DD", delimiters: ["/"] })
-    .withMessage("Must be a valid date in YYYY/MM/DD format"),
+    .withMessage("Date must be in IS08601 format"),
   body("endDateTime")
     .notEmpty()
     .withMessage("Start Date time is requred")
     .isISO8601()
-    .isDate({ format: "YYYY/MM/DD", delimiters: ["/"] })
-    .withMessage("Must be a valid date in YYYY/MM/DD format"),
-  body("status")
-    .notEmpty()
-    .withMessage("Start Date time is requred")
-    .isIn(["DRAFT", "PUBLISHED", "CANCELLED", "COMPLETED"])
-    .default("DRAFT"),
+    .withMessage("Date must be in IS08601 format"),
+  body("status").default("DRAFT"),
 ];
 
 module.exports = validateEvent;
