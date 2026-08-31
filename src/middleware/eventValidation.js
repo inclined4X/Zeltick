@@ -18,19 +18,17 @@ const validateEvent = [
   body("venueId")
     .notEmpty()
     .withMessage("Id for this field is required")
-    .isObject()
-    .withMessage("Has to be an objectId"),
+    .isMongoId(),
   body("startDateTime")
     .notEmpty()
-    .withMessage("Start Date time is requred")
+    .withMessage("Start Date time is required")
     .isISO8601()
-    .withMessage("Date must be in IS08601 format"),
+    .withMessage("Date must be in ISO8601 format"),
   body("endDateTime")
     .notEmpty()
-    .withMessage("Start Date time is requred")
+    .withMessage("Start Date time is required")
     .isISO8601()
-    .withMessage("Date must be in IS08601 format"),
-  body("status").default("DRAFT"),
+    .withMessage("Date must be in ISO8601 format"),
 ];
 
 module.exports = validateEvent;
