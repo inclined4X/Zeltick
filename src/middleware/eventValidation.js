@@ -7,18 +7,14 @@ const validateEvent = [
     .isString()
     .withMessage("Title must be a string")
     .isLength({ min: 5, max: 100 })
-    .withMessage("Title length should be between 6 to 500 characters")
-    .notEmpty()
-    .withMessage("title is required"),
+    .withMessage("Title length should be between 5 to 100 characters"),
   body("description")
     .notEmpty()
     .withMessage("Description is required")
     .isString()
     .withMessage("Description must be a string")
     .isLength({ min: 10, max: 2000 })
-    .withMessage("Description must be between 10 and 500 characters")
-    .notEmpty()
-    .withMessage("description is required"),
+    .withMessage("Description must be between 10 and 2000 characters"),
   body("organizerId")
     .notEmpty()
     .withMessage("Organizer Id is required")
