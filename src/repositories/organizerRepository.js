@@ -4,4 +4,6 @@ const findOrganizerById = async (organizerId) => {
   return await Organizer.findById(organizerId);
 };
 
-module.exports = findOrganizerById;
+module.exports = {
+  findOrganizerById,
+};

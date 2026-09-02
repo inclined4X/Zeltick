@@ -1,6 +1,6 @@
 const AppError = require("../errors/appError");
 const eventRepository = require("../repositories/eventRepository");
-const findOrganizerById = require("../repositories/organizerRepository");
+const organizerRepository = require("../repositories/organizerRepository");
 const venueRepository = require("../repositories/venueRepository");
 
 const createEvent = async (eventData) => {
@@ -27,7 +27,7 @@ const createEvent = async (eventData) => {
     throw new AppError("Venue does not exist", 404);
   }
 
-  const organizer = await findOrganizerById(organizerId);
+  const organizer = await organizerRepository.findOrganizerById(organizerId);
   if (!organizer) {
     throw new AppError("Organizer does not exist", 404);
   }
