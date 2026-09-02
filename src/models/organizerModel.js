@@ -7,6 +7,7 @@ const organizerSchema = new Schema(
       required: true,
       ref: "User",
     },
+
     name: {
       type: String,
       minLength: 2,
@@ -14,12 +15,14 @@ const organizerSchema = new Schema(
       trim: true,
       maxLength: 100,
     },
+
     description: {
       type: String,
       minLength: 10,
       maxLength: 2000,
       trim: true,
     },
+
     email: {
       type: String,
       required: [true, "email is required"],
@@ -31,10 +34,44 @@ const organizerSchema = new Schema(
         "Please provide a valid email address",
       ],
     },
+
     contactPhone: {
       type: String,
       trim: true,
     },
+
+    logo: {
+      type: String,
+      trim: true,
+    },
+
+    website: {
+      type: String,
+      trim: true,
+    },
+
+    socialLinks: {
+      instagram: {
+        type: String,
+        trim: true,
+      },
+
+      twitter: {
+        type: String,
+        trim: true,
+      },
+
+      linkedin: {
+        type: String,
+        trim: true,
+      },
+
+      facebook: {
+        type: String,
+        trim: true,
+      },
+    },
+
     status: {
       type: String,
       enum: ["active", "suspended"],
