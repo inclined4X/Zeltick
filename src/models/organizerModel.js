@@ -32,7 +32,7 @@ const organizerSchema = new Schema(
       ],
     },
     contactPhone: {
-      type: Sring,
+      type: String,
       trim: true,
     },
     status: {
