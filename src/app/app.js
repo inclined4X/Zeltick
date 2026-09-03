@@ -4,7 +4,7 @@ const healthRoutes = require("../routes/healthRoutes");
 const eventRoutes = require("../routes/eventRoutes");
 const authRoutes = require("../routes/authRoutes");
 const session = require("express-session");
-const { sessionSecret } = require("../config/env");
+const { sessionSecret, mongodbUri } = require("../config/env");
 const { default: MongoStore } = require("connect-mongo");
 const app = express();
 app.use(express.json());
@@ -13,8 +13,8 @@ app.use(
   session({
     secret: sessionSecret,
     resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: process.env.mongodbUri }),
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: mongodbUri }),
     cookie: {
       secure: false,
       httpOnly: true,
