@@ -30,3 +30,7 @@ const signup = async (userData) => {
     roles: newUser.roles,
   };
 };
+
+module.exports = {
+  signup,
+};
