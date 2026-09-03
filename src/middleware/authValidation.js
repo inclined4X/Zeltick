@@ -57,14 +57,7 @@ const validateAuthLogin = [
     .withMessage("email not valid")
     .normalizeEmail(),
 
-  body("password")
-    .notEmpty()
-    .withMessage("Password is required")
-    .bail()
-    .isStrongPassword()
-    .withMessage(
-      "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one symbol",
-    ),
+  body("password").notEmpty().withMessage("Password is required").bail(),
 ];
 
 module.exports = { validateAuthSignup, validateAuthLogin };

@@ -3,6 +3,7 @@ const errorHandler = require("../middleware/errorHandler");
 const healthRoutes = require("../routes/healthRoutes");
 const eventRoutes = require("../routes/eventRoutes");
 const authRoutes = require("../routes/authRoutes");
+const session = require("express-session");
 
 const app = express();
 app.use(express.json());
