@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const port = Number(process.env.PORT);
 const mongodbUri = process.env.MONGODB_URI;
+const sessionSecret = process.env.SESSION_SECRET;
 
 if (!Number.isInteger(port) || port < 1024 || port > 65535) {
   throw new Error(
@@ -11,13 +12,18 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535) {
 
 if (typeof mongodbUri !== "string" || mongodbUri.trim() === "") {
   throw new Error(
-    "Invalid configuration: MONGODB_URI must be a not non-empty string",
+    "Invalid configuration: MONGODB_URI must not be a non-empty string",
   );
+}
+
+if (!sessionSecret) {
+  throw new Error("Session secret is required");
 }
 
 const config = {
   port,
   mongodbUri,
+  sessionSecret,
 };
 
 module.exports = config;
