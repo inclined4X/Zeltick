@@ -1,6 +1,6 @@
 const { body } = require("express-validator");
 
-const validateAuth = [
+const validateAuthSignup = [
   body("firstName")
     .trim()
     .notEmpty()
@@ -36,7 +36,7 @@ const validateAuth = [
     .bail()
     .isStrongPassword()
     .withMessage(
-      "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one symbol.l",
+      "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one symbol",
     ),
 
   body("confirmPassword")
@@ -47,4 +47,24 @@ const validateAuth = [
     .withMessage("Passwords do not match"),
 ];
 
-module.exports = validateAuth;
+const validateAuthLogin = [
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("Email is required")
+    .bail()
+    .isEmail()
+    .withMessage("email not valid")
+    .normalizeEmail(),
+
+  body("password")
+    .notEmpty()
+    .withMessage("Password is required")
+    .bail()
+    .isStrongPassword()
+    .withMessage(
+      "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one symbol",
+    ),
+];
+
+module.exports = { validateAuthSignup, validateAuthLogin };
