@@ -36,13 +36,13 @@ const userSchema = new Schema(
     },
 
     roles: {
-      type: String,
+      type: [String],
       enum: ["attendee", "organizer", "admin", "staff"],
       required: true,
     },
 
     status: {
-      type: String,
+      type: [String],
       enum: ["active", "suspended", "deactivated"],
       default: "active",
     },
