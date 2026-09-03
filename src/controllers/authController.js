@@ -19,7 +19,6 @@ const login = async (req, res, next) => {
     req.session.regenerate(function (err) {
       if (err) return next(err);
       req.session.userId = user.id;
-      req.session.roles = user.roles;
 
       return res.status(200).json({ status: "success", data: user });
     });
