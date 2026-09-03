@@ -1,6 +1,5 @@
 const signupService = require("../service/signupService");
 const loginService = require("../service/loginService");
-const session = require("express-session");
 
 const signup = async (req, res, next) => {
   try {
@@ -27,4 +26,15 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, login };
+const me = async (req, res, next) => {
+  try {
+    res.status(200).json({
+      status: "success",
+      data: req.user,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { signup, login, me };
