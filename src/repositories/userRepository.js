@@ -8,7 +8,12 @@ const createUser = async (userData) => {
   return await User.create(userData);
 };
 
+const findUserById = async (userId) => {
+  return await User.findById(userId);
+};
+
 module.exports = {
   findUserByEmail,
   createUser,
+  findUserById,
 };
