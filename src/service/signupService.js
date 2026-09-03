@@ -7,7 +7,7 @@ const signup = async (userData) => {
 
   const existingUser = await userRepository.findUserByEmail(email);
   if (existingUser) {
-    throw new AppError("An account with this email aready exists", 400);
+    throw new AppError("An account with this email already exists", 409);
   }
 
   const passwordHash = await argon2.hash(password, {
@@ -18,6 +18,7 @@ const signup = async (userData) => {
     firstName,
     lastName,
     passwordHash,
+    email,
     roles: ["attendee"],
   });
 
