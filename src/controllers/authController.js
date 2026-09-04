@@ -5,7 +5,11 @@ const signup = async (req, res, next) => {
   try {
     const user = await signupService.signup(req.body);
 
-    res.status(201).json({ status: "success", data: user });
+    req.session.regenerate(function (err) {
+      if (err) return next(err);
+      req.session.userId = user.id;
+      res.status(201).json({ status: "success", data: user });
+    });
   } catch (err) {
     next(err);
   }
