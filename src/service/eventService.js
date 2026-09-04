@@ -3,8 +3,8 @@ const eventRepository = require("../repositories/eventRepository");
 const organizerRepository = require("../repositories/organizerRepository");
 const venueRepository = require("../repositories/venueRepository");
 
-const createEvent = async (eventData) => {
-  const { startDateTime, endDateTime, venueId, organizerId } = eventData;
+const createEvent = async (eventData, userId) => {
+  const { startDateTime, endDateTime, venueId } = eventData;
   const start = new Date(startDateTime);
   const end = new Date(endDateTime);
   const now = new Date();
@@ -27,12 +27,18 @@ const createEvent = async (eventData) => {
     throw new AppError("Venue does not exist", 404);
   }
 
-  const organizer = await organizerRepository.findOrganizerById(organizerId);
+  const organizer = await organizerRepository.findOrganizerByUserId(userId);
+
   if (!organizer) {
-    throw new AppError("Organizer does not exist", 404);
+    throw new AppError("organizer does not exist", 404);
   }
 
-  return await eventRepository(eventData);
+  const eventDataWithOrganizerId = {
+    ...eventData,
+    organizerId: organizer._id,
+  };
+
+  return await eventRepository(eventDataWithOrganizerId);
 };
 
 module.exports = {
