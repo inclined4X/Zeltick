@@ -6,7 +6,8 @@
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "express-validator": "^7.3.2",
-    "mongoose": "^9.9.3"
+    "mongoose": "^9.9.3",
+    "pino": "^10.3.1"
   },
   "name": "zeltick",
   "version": "1.0.0",
