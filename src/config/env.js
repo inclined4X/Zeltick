@@ -4,6 +4,7 @@ const port = Number(process.env.PORT);
 const mongodbUri = process.env.MONGODB_URI;
 const sessionSecret = process.env.SESSION_SECRET;
 const logLevel = process.env.LOG_LEVEL || "info";
+const nodeEnvironment = process.env.NODE_ENV || "development";
 
 if (!Number.isInteger(port) || port < 1024 || port > 65535) {
   throw new Error(
@@ -21,11 +22,22 @@ if (!sessionSecret) {
   throw new Error("Session secret is required");
 }
 
+if (
+  nodeEnvironment !== "development" &&
+  nodeEnvironment !== "test" &&
+  nodeEnvironment !== "production"
+) {
+  throw new Error(
+    "Invalid node environment. Node environment must be development or test or production",
+  );
+}
+
 const config = {
   port,
   mongodbUri,
   sessionSecret,
   logLevel,
+  nodeEnvironment,
 };
 
 module.exports = config;

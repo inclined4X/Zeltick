@@ -1,7 +1,7 @@
 const pino = require("pino");
 const pinoHttp = require("pino-http");
 
-const { logLevel } = require("../config/env");
+const { logLevel, nodeEnvironment } = require("../config/env");
 
 const logger = pino({
   level: logLevel,
