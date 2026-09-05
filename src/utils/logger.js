@@ -7,6 +7,7 @@ const isProduction = nodeEnvironment === "production";
 
 const logger = pino({
   level: logLevel,
+
   transport: isProduction
     ? undefined
     : {
@@ -17,6 +18,7 @@ const logger = pino({
           ignore: "pid,hostname",
         },
       },
+
   redact: {
     paths: [
       "req.headers.authorization",
@@ -26,6 +28,7 @@ const logger = pino({
     censor: "[REDACTED]",
   },
 });
+
 const httpLogger = pinoHttp({ logger });
 
 module.exports = { logger, httpLogger };
