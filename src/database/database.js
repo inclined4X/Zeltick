@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 const { mongodbUri } = require("../config/env");
+const logger = require("../utils/logger");
 
 const connectDatabase = async function () {
   await mongoose.connect(mongodbUri);
-  console.log("Database is connected");
+  logger.info("Database is connected");
 };
 
 const disconnectDatabase = async function () {
   await mongoose.disconnect();
-  console.log("connection closed");
+  logger.info("connection closed");
 };
 
 module.exports = {
