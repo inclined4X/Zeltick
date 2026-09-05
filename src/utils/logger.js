@@ -5,6 +5,14 @@ const { logLevel } = require("../config/env");
 
 const logger = pino({
   level: logLevel,
+  transport: {
+    target: "pino-pretty",
+    options: {
+      translateTime: "SYS:dd-mm-yy HH:MM:ss",
+      colorize: true,
+      ignore: "pid,hostname",
+    },
+  },
   redact: {
     paths: [
       "req.headers.authorization",
