@@ -1,6 +1,8 @@
 const pino = require("pino");
+const { logLevel } = require("../config/env");
+
 const logger = pino({
-  level: process.env.LOG_LEVEL || "info",
+  level: logLevel || "info",
 });
 
 module.exports = logger;

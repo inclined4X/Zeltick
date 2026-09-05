@@ -3,6 +3,7 @@ require("dotenv").config();
 const port = Number(process.env.PORT);
 const mongodbUri = process.env.MONGODB_URI;
 const sessionSecret = process.env.SESSION_SECRET;
+const logLevel = process.env.LOG_LEVEL;
 
 if (!Number.isInteger(port) || port < 1024 || port > 65535) {
   throw new Error(
@@ -24,6 +25,7 @@ const config = {
   port,
   mongodbUri,
   sessionSecret,
+  logLevel,
 };
 
 module.exports = config;
