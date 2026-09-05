@@ -1,7 +1,7 @@
 const app = require("../app/app");
 const { port } = require("../config/env");
 const { connectDatabase, disconnectDatabase } = require("../database/database");
-const logger = require("../utils/logger");
+const { logger } = require("../utils/logger");
 
 const startServer = async function () {
   try {

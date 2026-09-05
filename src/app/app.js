@@ -6,7 +6,10 @@ const authRoutes = require("../routes/authRoutes");
 const session = require("express-session");
 const { sessionSecret, mongodbUri } = require("../config/env");
 const { default: MongoStore } = require("connect-mongo");
+const { httpLogger } = require("../utils/logger");
 const app = express();
+
+app.use(httpLogger);
 app.use(express.json());
 
 app.use(

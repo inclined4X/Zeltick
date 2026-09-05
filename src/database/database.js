@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { mongodbUri } = require("../config/env");
-const logger = require("../utils/logger");
+const { logger } = require("../utils/logger");
 
 const connectDatabase = async function () {
   await mongoose.connect(mongodbUri);
