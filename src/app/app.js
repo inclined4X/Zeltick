@@ -7,9 +7,18 @@ const session = require("express-session");
 const { sessionSecret, mongodbUri } = require("../config/env");
 const { default: MongoStore } = require("connect-mongo");
 const { httpLogger } = require("../utils/logger");
+const cors = require("cors");
 const app = express();
 
 app.use(httpLogger);
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
+
 app.use(express.json());
 
 app.use(
