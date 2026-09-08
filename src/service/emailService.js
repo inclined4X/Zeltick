@@ -6,9 +6,9 @@ const AppError = require("../errors/appError");
 const resend = new Resend(resendApiKey);
 
 const sendVerificationEmail = async (email, token) => {
-  const verificationUrl = `${appBaseUrl}/auth/verify-email?token=${encodeURIComponent(token)}`;
-
   try {
+    const verificationUrl = `${appBaseUrl}/auth/verify-email?token=${encodeURIComponent(token)}`;
+
     const data = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: email,
