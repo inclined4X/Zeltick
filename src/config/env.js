@@ -6,6 +6,7 @@ const sessionSecret = process.env.SESSION_SECRET;
 const logLevel = process.env.LOG_LEVEL || "info";
 const nodeEnvironment = process.env.NODE_ENV || "development";
 const resendApiKey = process.env.RESEND_APIKEY;
+const appBaseUrl = process.env.APP_BASE_URL;
 
 if (!Number.isInteger(port) || port < 1024 || port > 65535) {
   throw new Error(
@@ -37,6 +38,10 @@ if (!resendApiKey) {
   throw new Error("Resend API does not exist");
 }
 
+if (!appBaseUrl) {
+  throw new Error("App base URL does not exist");
+}
+
 const config = {
   port,
   mongodbUri,
@@ -44,6 +49,7 @@ const config = {
   logLevel,
   nodeEnvironment,
   resendApiKey,
+  appBaseUrl,
 };
 
 module.exports = config;
