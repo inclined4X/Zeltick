@@ -46,6 +46,20 @@ const userSchema = new Schema(
       enum: ["active", "suspended", "deactivated"],
       default: "active",
     },
+
+    emailVerified: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+
+    verificationTokenHash: {
+      type: String,
+    },
+
+    verificationTokenExpiresAt: {
+      type: Date,
+    },
   },
   { timestamps: true },
 );
