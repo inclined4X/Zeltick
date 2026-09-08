@@ -16,9 +16,11 @@ const signup = async (userData) => {
     type: argon2.argon2id,
   });
 
-  const tokenHash = crypto
+  const tokenForEmail = tokenGenerate();
+
+  const verificationTokenHash = crypto
     .createHash("sha256")
-    .update(tokenGenerate)
+    .update(tokenForEmail)
     .digest("hex");
 
   const newUser = await userRepository.createUser({
