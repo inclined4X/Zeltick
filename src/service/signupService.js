@@ -3,6 +3,7 @@ const userRepository = require("../repositories/userRepository");
 const argon2 = require("argon2");
 const crypto = require("crypto");
 const tokenGenerate = require("../utils/token");
+const sendVerificationEmail = require("./emailService");
 
 const signup = async (userData) => {
   const { firstName, lastName, email, password } = userData;
@@ -34,6 +35,8 @@ const signup = async (userData) => {
     verificationTokenHash,
     verificationTokenExpiresAt,
   });
+
+  await sendVerificationEmail(email, tokenForEmail);
 
   return {
     id: newUser._id,

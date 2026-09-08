@@ -22,6 +22,8 @@ const sendVerificationEmail = async (email, token) => {
   }
 };
 
+module.exports = sendVerificationEmail;
+
 // resend.emails.send({
 //   from: "onboarding@resend.dev",
 //   to: "jezemiahsam48@gmail.com",
