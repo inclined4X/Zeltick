@@ -23,12 +23,16 @@ const signup = async (userData) => {
     .update(tokenForEmail)
     .digest("hex");
 
+  const verificationTokenExpiresAt = new Date(Date.now() + 5 * 60 * 1000);
+
   const newUser = await userRepository.createUser({
     firstName,
     lastName,
     passwordHash,
     email,
     roles: ["attendee"],
+    verificationTokenHash,
+    verificationTokenExpiresAt,
   });
 
   return {
