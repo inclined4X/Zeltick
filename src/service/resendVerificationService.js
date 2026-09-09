@@ -12,7 +12,7 @@ const resendVerficationEmail = async (user) => {
   const tokenForEmail = tokenGenerate();
 
   const tokenHash = crypto
-    .createHash(sha256)
+    .createHash("sha256")
     .update(tokenForEmail)
     .digest("hex");
 
@@ -26,3 +26,5 @@ const resendVerficationEmail = async (user) => {
 
   await sendVerificationEmail(user.email, tokenForEmail);
 };
+
+module.exports = resendVerficationEmail;

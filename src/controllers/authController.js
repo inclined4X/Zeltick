@@ -35,6 +35,19 @@ const verifyEmail = async (req, res, next) => {
   }
 };
 
+const resendVerificationEmail = async (req, res, next) => {
+  try {
+    await resendVerificationEmail(req.user);
+
+    return res.status(200).json({
+      status: "success",
+      message: "Verification email sent",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const login = async (req, res, next) => {
   try {
     const user = await loginService.login(req.body);
