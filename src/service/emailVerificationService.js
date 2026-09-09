@@ -31,3 +31,7 @@ const verifyEmail = async (tokenFromUrl) => {
 
   await user.save();
 };
+
+module.exports = {
+  verifyEmail,
+};
