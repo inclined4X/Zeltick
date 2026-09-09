@@ -8,9 +8,6 @@ const resendVerficationEmail = async (user) => {
   if (user.emailVerified) {
     throw new AppError("Email is already verified", 400);
   }
-  if (!user) {
-    throw new AppError("User doesnt exist", 404);
-  }
 
   const tokenForEmail = tokenGenerate();
 
