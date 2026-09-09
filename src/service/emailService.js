@@ -9,7 +9,7 @@ const sendVerificationEmail = async (email, token) => {
   try {
     const verificationUrl = `${appBaseUrl}/auth/verify-email?token=${encodeURIComponent(token)}`;
 
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: ["jezemiahsam48@gmail.com"],
       subject: "Verify your email",
@@ -19,7 +19,6 @@ const sendVerificationEmail = async (email, token) => {
     if (error) {
       throw new AppError("failed to send email");
     }
-    return data;
   } catch (err) {
     logger.error({ err, email }, "Failed to send email verification");
     throw new AppError("Failed to send verification email", 500);
