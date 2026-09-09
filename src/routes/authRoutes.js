@@ -24,4 +24,10 @@ router.post(
 router.get("/me", authenticate, authController.me);
 router.get("/verify-email", authController.verifyEmail);
 
+router.post(
+  "/resend-verification",
+  authenticate,
+  authController.resendVerificationEmail,
+);
+
 module.exports = router;

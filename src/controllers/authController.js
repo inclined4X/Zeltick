@@ -1,6 +1,7 @@
 const signupService = require("../service/signupService");
 const loginService = require("../service/loginService");
 const emailVerificationService = require("../service/emailVerificationService");
+const resendVerificatonService = require("../service/resendVerificationService");
 
 const signup = async (req, res, next) => {
   try {
@@ -37,7 +38,7 @@ const verifyEmail = async (req, res, next) => {
 
 const resendVerificationEmail = async (req, res, next) => {
   try {
-    await resendVerificationEmail(req.user);
+    await resendVerificatonService.resendVerficationEmail(req.user);
 
     return res.status(200).json({
       status: "success",
@@ -74,4 +75,4 @@ const me = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, login, me, verifyEmail };
+module.exports = { signup, login, me, verifyEmail, resendVerificationEmail };

@@ -27,4 +27,4 @@ const resendVerficationEmail = async (user) => {
   await sendVerificationEmail(user.email, tokenForEmail);
 };
 
-module.exports = resendVerficationEmail;
+module.exports = { resendVerficationEmail };
