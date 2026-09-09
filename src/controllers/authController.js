@@ -16,7 +16,7 @@ const signup = async (req, res, next) => {
   }
 };
 
-const verifyEmailController = async (req, res, next) => {
+const verifyEmail = async (req, res, next) => {
   try {
     const token = req.query.token;
 
@@ -61,4 +61,4 @@ const me = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, login, me };
+module.exports = { signup, login, me, verifyEmail };
