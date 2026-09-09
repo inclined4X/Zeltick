@@ -16,7 +16,7 @@ const signup = async (req, res, next) => {
   }
 };
 
-const verifyEmailController = async (req, user, next) => {
+const verifyEmailController = async (req, res, next) => {
   try {
     const token = req.query.token;
 
@@ -30,7 +30,9 @@ const verifyEmailController = async (req, user, next) => {
       status: "success",
       message: "Email verified successfully",
     });
-  } catch (err) {}
+  } catch (err) {
+    next(err);
+  }
 };
 
 const login = async (req, res, next) => {
