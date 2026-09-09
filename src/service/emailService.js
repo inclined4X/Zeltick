@@ -11,13 +11,13 @@ const sendVerificationEmail = async (email, token) => {
 
     const { error } = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: ["jezemiahsam48@gmail.com"],
+      to: [email],
       subject: "Verify your email",
       html: `<p>Click the link to verify your email: <a href="${verificationUrl}">Verify Email</a></p>`,
     });
 
     if (error) {
-      throw new AppError("failed to send email");
+      throw error;
     }
   } catch (err) {
     logger.error({ err, email }, "Failed to send email verification");
