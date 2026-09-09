@@ -21,5 +21,13 @@ const verifyEmail = async (tokenFromUrl) => {
     throw new AppError("Invalid or expired verification token", 400);
   }
 
+  if (!userWithToken.verificationTokenHash) {
+    throw new AppError("Invalid or expired verification token", 400);
+  }
+
   userWithToken.emailVerified = true;
+  userWithToken.verificationTokenHash = undefined;
+  userWithToken.verificationTokenExpiresAt = undefined;
+
+  await user.save();
 };
