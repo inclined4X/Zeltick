@@ -12,8 +12,13 @@ const findUserById = async (userId) => {
   return await User.findById(userId).select("-passwordHash");
 };
 
+const findUserByVerificationTokenHash = async (verificationTokenHash) => {
+  return await User.findOne({ verificationTokenHash });
+};
+
 module.exports = {
   findUserByEmail,
   createUser,
   findUserById,
+  findUserByVerificationTokenHash,
 };
