@@ -9,12 +9,16 @@ const sendVerificationEmail = async (email, token) => {
   try {
     const verificationUrl = `${appBaseUrl}/auth/verify-email?token=${encodeURIComponent(token)}`;
 
-    const data = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: email,
+      to: ["jezemiahsam48@gmail.com"],
       subject: "Verify your email",
       html: `<p>Click the link to verify your email: <a href="${verificationUrl}">Verify Email</a></p>`,
     });
+
+    if (error) {
+      throw new AppError("failed to send email");
+    }
     return data;
   } catch (err) {
     logger.error({ err, email }, "Failed to send email verification");
@@ -23,10 +27,3 @@ const sendVerificationEmail = async (email, token) => {
 };
 
 module.exports = sendVerificationEmail;
-
-// resend.emails.send({
-//   from: "onboarding@resend.dev",
-//   to: "jezemiahsam48@gmail.com",
-//   subject: "Hello World",
-//   html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
-// });
