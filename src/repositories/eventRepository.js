@@ -1,6 +1,6 @@
 const Event = require("../models/eventModel");
 
-const eventRepository = async (eventData) => {
+const createEventRepository = async (eventData) => {
   return await Event.create(eventData);
 };
 
@@ -16,4 +16,8 @@ const findPublicEventById = async (id) => {
   });
 };
 
-module.exports = eventRepository;
+module.exports = {
+  createEventRepository,
+  findPublishedEvents,
+  findPublicEventById,
+};

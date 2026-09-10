@@ -38,7 +38,13 @@ const createEvent = async (eventData, userId) => {
     organizerId: organizer._id,
   };
 
-  return await eventRepository(eventDataWithOrganizerId);
+  return await eventRepository.createEventRepository(eventDataWithOrganizerId);
+};
+
+const getPublishedEvents = async () => {
+  const events = await eventRepository.findPublishedEvents();
+
+  return events;
 };
 
 module.exports = {
