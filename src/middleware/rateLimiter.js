@@ -18,4 +18,15 @@ const signupLimiter = rateLimit({
   skipSuccessfulRequests: false,
 });
 
-module.exports = { loginLimiter, signupLimiter };
+const resendLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000,
+  limit: 3,
+  message: {
+    error: "Too many verification resend requests, please try again later",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  skipSuccessfulRequests: false,
+});
+
+module.exports = { loginLimiter, signupLimiter, resendLimiter };

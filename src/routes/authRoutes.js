@@ -28,6 +28,7 @@ router.get("/verify-email", authController.verifyEmail);
 
 router.post(
   "/resend-verification",
+  rateLimiter.resendLimiter,
   authenticate,
   authController.resendVerificationEmail,
 );
