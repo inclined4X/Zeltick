@@ -8,4 +8,12 @@ const findPublishedEvents = async () => {
   return await Event.find({ status: "PUBLISHED", wasEverPublished: true });
 };
 
+const findPublicEventById = async (id) => {
+  return await Event.findOne({
+    _id: id,
+    wasEverPublished: true,
+    status: { $in: ["PUBLISHED", "CANCELLED", "COMPLETED"] },
+  });
+};
+
 module.exports = eventRepository;
