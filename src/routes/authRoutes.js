@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post(
   "/signup",
+  rateLimiter.signupLimiter,
   authValidation.validateAuthSignup,
   validate,
   authController.signup,
