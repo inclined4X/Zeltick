@@ -45,6 +45,11 @@ const eventSchema = new Schema(
       enum: ["DRAFT", "PUBLISHED", "CANCELLED", "COMPLETED"],
       default: "DRAFT",
     },
+
+    wasEverPublished: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
