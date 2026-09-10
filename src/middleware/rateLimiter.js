@@ -15,7 +15,7 @@ const signupLimiter = rateLimit({
   message: { error: "Too many signup attempts, please try again later" },
   standardHeaders: true,
   legacyHeaders: false,
-  skipSuccessfulRequests: true,
+  skipSuccessfulRequests: false,
 });
 
 module.exports = { loginLimiter, signupLimiter };
