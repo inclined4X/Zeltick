@@ -47,6 +47,24 @@ const getPublishedEvents = async () => {
   return events;
 };
 
+const getPublicEventById = async (id) => {
+  if (!id) {
+    throw new AppError("ID does not exist or invalid", 400);
+  }
+
+  if (!mongoose.isValidObjectId(id)) {
+    throw new AppError("ID is invalid", 400);
+  }
+
+  const event = await eventRepository.findPublicEventById(id);
+
+  if (!event) {
+    throw new AppError("Event does not exist", 404);
+  }
+
+  return event;
+};
+
 module.exports = {
   createEvent,
 };
