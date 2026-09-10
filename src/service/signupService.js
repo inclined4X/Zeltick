@@ -19,8 +19,6 @@ const signup = async (userData) => {
 
   const tokenForEmail = tokenGenerate();
 
-  console.log("DEV verification token:", tokenForEmail);
-
   const verificationTokenHash = crypto
     .createHash("sha256")
     .update(tokenForEmail)
