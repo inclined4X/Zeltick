@@ -27,4 +27,19 @@ const getPublishedEventsController = async (req, res, next) => {
   }
 };
 
+const getPublicEventByIdController = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const event = await eventService.getPublicEventById(id);
+
+    return res.status(200).json({
+      status: "success",
+      data: event,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = eventController;
