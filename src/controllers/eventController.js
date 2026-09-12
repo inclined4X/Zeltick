@@ -1,4 +1,4 @@
-const { createEvent } = require("../service/eventService");
+const eventService = require("../service/eventService");
 
 const eventController = async (req, res, next) => {
   try {
@@ -6,9 +6,22 @@ const eventController = async (req, res, next) => {
 
     const userId = req.user._id;
 
-    const event = await createEvent(eventData, userId);
+    const event = await eventService.createEvent(eventData, userId);
 
     return res.status(201).json({ success: true, data: event });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getPublishedEventsController = async (req, res, next) => {
+  try {
+    const events = await eventService.getPublishedEvents();
+
+    return res.status(200).json({
+      status: "success",
+      data: events,
+    });
   } catch (err) {
     next(err);
   }

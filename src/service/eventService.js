@@ -67,4 +67,6 @@ const getPublicEventById = async (id) => {
 
 module.exports = {
   createEvent,
+  getPublishedEvents,
+  getPublicEventById,
 };
