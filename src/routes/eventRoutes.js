@@ -12,11 +12,11 @@ router.post(
   validate,
   authenticate,
   authourize("organizer"),
-  eventController,
+  eventController.createEventController,
 );
 
 router.get("/", eventController.getPublishedEventsController);
 
-router.get("/", eventController.getPublicEventByIdController);
+router.get("/:id", eventController.getPublicEventByIdController);
 
 module.exports = router;
