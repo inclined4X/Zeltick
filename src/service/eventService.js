@@ -4,6 +4,34 @@ const eventRepository = require("../repositories/eventRepository");
 const organizerRepository = require("../repositories/organizerRepository");
 const venueRepository = require("../repositories/venueRepository");
 
+const toPublicEvent = (event) => {
+  return {
+    id: event.id,
+    title: event.title,
+    description: event.description,
+    startDateTime: event.startDateTime,
+    endDateTime: event.endDateTime,
+    status: event.status,
+
+    venue: event.venueId
+      ? {
+          name: event.venueId.name,
+          location: event.venueId.location,
+        }
+      : null,
+
+    orgainizer: event.organizerId
+      ? {
+          name: event.organizerId.name,
+          description: event.organizer.description,
+          logo: event.organizerId.logo,
+          website: event.organizerId.website,
+          socialLinks: event.organizerId.socialLinks,
+        }
+      : null,
+  };
+};
+
 const createEvent = async (eventData, userId) => {
   const { startDateTime, endDateTime, venueId } = eventData;
   const start = new Date(startDateTime);
