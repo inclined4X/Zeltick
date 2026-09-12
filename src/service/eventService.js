@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const AppError = require("../errors/appError");
 const eventRepository = require("../repositories/eventRepository");
 const organizerRepository = require("../repositories/organizerRepository");
@@ -43,6 +44,10 @@ const createEvent = async (eventData, userId) => {
 
 const getPublishedEvents = async () => {
   const events = await eventRepository.findPublishedEvents();
+
+  return {
+    title,
+  };
 
   return events;
 };

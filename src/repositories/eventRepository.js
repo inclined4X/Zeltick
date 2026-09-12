@@ -5,7 +5,12 @@ const createEventRepository = async (eventData) => {
 };
 
 const findPublishedEvents = async () => {
-  return await Event.find({ status: "PUBLISHED", wasEverPublished: true });
+  return await Event.find({
+    status: "PUBLISHED",
+    wasEverPublished: true,
+  })
+    .populate("organizerID", "name description logo website socialLinks")
+    .populate("venueId", "name location");
 };
 
 const findPublicEventById = async (id) => {
@@ -13,7 +18,9 @@ const findPublicEventById = async (id) => {
     _id: id,
     wasEverPublished: true,
     status: { $in: ["PUBLISHED", "CANCELLED", "COMPLETED"] },
-  });
+  })
+    .populate("organizerId", "name description logo website socialLinks")
+    .populate("venueId", "name location");
 };
 
 module.exports = {
