@@ -9,7 +9,7 @@ const findPublishedEvents = async () => {
     status: "PUBLISHED",
     wasEverPublished: true,
   })
-    .populate("organizerID", "name description logo website socialLinks")
+    .populate("organizerId", "name description logo website socialLinks")
     .populate("venueId", "name location");
 };
 

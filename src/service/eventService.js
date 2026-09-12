@@ -20,10 +20,10 @@ const toPublicEvent = (event) => {
         }
       : null,
 
-    orgainizer: event.organizerId
+    organizer: event.organizerId
       ? {
           name: event.organizerId.name,
-          description: event.organizer.description,
+          description: event.organizerId.description,
           logo: event.organizerId.logo,
           website: event.organizerId.website,
           socialLinks: event.organizerId.socialLinks,
@@ -73,11 +73,7 @@ const createEvent = async (eventData, userId) => {
 const getPublishedEvents = async () => {
   const events = await eventRepository.findPublishedEvents();
 
-  return {
-    title,
-  };
-
-  return events;
+  return events.map(toPublicEvent);
 };
 
 const getPublicEventById = async (id) => {
@@ -95,7 +91,7 @@ const getPublicEventById = async (id) => {
     throw new AppError("Event does not exist", 404);
   }
 
-  return event;
+  return toPublicEvent(event);
 };
 
 module.exports = {
