@@ -1,6 +1,6 @@
 const eventService = require("../service/eventService");
 
-const eventController = async (req, res, next) => {
+const createEventController = async (req, res, next) => {
   try {
     const eventData = req.body;
 
@@ -42,4 +42,8 @@ const getPublicEventByIdController = async (req, res, next) => {
   }
 };
 
-module.exports = eventController;
+module.exports = {
+  createEventController,
+  getPublishedEventsController,
+  getPublicEventByIdController,
+};

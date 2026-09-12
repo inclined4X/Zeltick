@@ -15,4 +15,8 @@ router.post(
   eventController,
 );
 
+router.get("/", eventController.getPublishedEventsController);
+
+router.get("/", eventController.getPublicEventByIdController);
+
 module.exports = router;
