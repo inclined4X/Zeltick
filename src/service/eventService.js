@@ -94,6 +94,8 @@ const getPublicEventById = async (id) => {
   return toPublicEvent(event);
 };
 
+const EVENT_UPDATE_ALLOWED_STATUSES = ["DRAFT"];
+
 const updateEvent = async (userId, eventId, updateData) => {
   const event = await eventRepository.findEventById(eventId);
 
@@ -109,6 +111,10 @@ const updateEvent = async (userId, eventId, updateData) => {
 
   if (!event.organizerId.equals(organizer._id)) {
     throw new AppError("You do not have permission to modify this event", 403);
+  }
+
+  if (!EVENT_UPDATE_ALLOWED_STATUSES.includes(event.status)) {
+    throw new AppError(`An event with ${event.status} can not be edited`, 409);
   }
 };
 
