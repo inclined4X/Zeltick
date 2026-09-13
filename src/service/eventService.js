@@ -132,7 +132,7 @@ const updateEvent = async (userId, eventId, updateData) => {
   }
 
   const invalidFields = requestedFields.filter(
-    (fields) => !EDITABLE_EVENT_FIELDS.includes(fields),
+    (field) => !EDITABLE_EVENT_FIELDS.includes(field),
   );
 
   if (invalidFields.length > 0) {
