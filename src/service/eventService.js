@@ -100,6 +100,16 @@ const updateEvent = async (userId, eventId, updateData) => {
   if (!event) {
     throw new AppError("Event does not exist", 404);
   }
+
+  const organizer = await organizerRepository.findOrganizerByUserId(userId);
+
+  if (!organizer) {
+    throw new AppError("Organizer does not exist", 404);
+  }
+
+  if (!event.organizerId.equals(organizer._id)) {
+    throw new AppError("You do not have permission to modify this event", 403);
+  }
 };
 
 module.exports = {
