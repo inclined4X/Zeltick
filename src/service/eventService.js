@@ -125,29 +125,36 @@ const updateEvent = async (userId, eventId, updateData) => {
     throw new AppError(`An event with ${event.status} can not be edited`, 409);
   }
 
-  const requestedFields = object.keys(updateData);
+  const requestedFields = Object.keys(updateData);
 
-  if (requestedFields === 0) {
-    throw new Error("No fields provided for update", 400);
+  if (requestedFields.length === 0) {
+    throw new AppError("No fields provided for update", 400);
   }
 
-  const invalidFields = requestedFields.filter((fields) =>
-    EDITABLE_EVENT_FIELDS.includes(fields),
+  const invalidFields = requestedFields.filter(
+    (fields) => !EDITABLE_EVENT_FIELDS.includes(fields),
   );
 
-  if (invalidFields > 0) {
+  if (invalidFields.length > 0) {
     throw new AppError(
       `The following fields can't be updated: ${invalidFields.join(", ")}`,
+      400,
     );
   }
 
   const allowedUpdates = {};
 
   for (const field of EDITABLE_EVENT_FIELDS) {
-    if (object.hasOwn(updateData, field)) {
-      allowedUpdates[field] = updateData(field);
+    if (Object.hasOwn(updateData, field)) {
+      allowedUpdates[field] = updateData[field];
     }
   }
+
+  Object.assign(event, allowedUpdates);
+
+  await event.save();
+
+  return event;
 };
 
 module.exports = {
