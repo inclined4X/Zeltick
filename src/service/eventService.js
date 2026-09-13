@@ -94,6 +94,14 @@ const getPublicEventById = async (id) => {
   return toPublicEvent(event);
 };
 
+const updateEvent = async (userId, eventId, updateData) => {
+  const event = await eventRepository.findEventById(eventId);
+
+  if (!event) {
+    throw new AppError("Event does not exist", 404);
+  }
+};
+
 module.exports = {
   createEvent,
   getPublishedEvents,

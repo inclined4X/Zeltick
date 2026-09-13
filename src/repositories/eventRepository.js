@@ -31,4 +31,5 @@ module.exports = {
   createEventRepository,
   findPublishedEvents,
   findPublicEventById,
+  findEventById,
 };
