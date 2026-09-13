@@ -4,6 +4,10 @@ const createEventRepository = async (eventData) => {
   return await Event.create(eventData);
 };
 
+const findEventById = async (id) => {
+  return await Event.findById(id);
+};
+
 const findPublishedEvents = async () => {
   return await Event.find({
     status: "PUBLISHED",
