@@ -212,6 +212,12 @@ const getOwnedEvent = async (userId, eventId) => {
   if (!organizer) {
     throw new AppError("Organizer does not exist", 403);
   }
+
+  if (!event.organizerId.equals(organizer._id)) {
+    throw new AppError("You do not have permission to modify this event", 403);
+  }
+
+  return event;
 };
 
 module.exports = {
