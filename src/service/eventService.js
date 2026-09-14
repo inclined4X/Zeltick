@@ -228,8 +228,34 @@ const VALID_TRANSITIONS = {
 };
 
 const transitionStateEvent = async (userId, eventId, targetStatus) => {
-  await getOwnedEvent(userId, eventId);
+  const event = await getOwnedEvent(userId, eventId);
+
+  const allowedTargets = VALID_TRANSITIONS[event.status];
+
+  if (!allowedTargets.includes(targetStatus)) {
+    throw new AppError(
+      `Cannot transition event from ${event.status} to ${targetStatus}`,
+      409,
+    );
+  }
+
+  event.status = targetStatus;
+
+  if (event.status === "PUBLISHED") {
+    event.wasEverPublished = true;
+  }
+
+  return await event.save();
 };
+
+const publishEvent = (eventId, userId) =>
+  transitionEventStatus(eventId, userId, "PUBLISHED");
+
+const cancelEvent = (eventId, userId) =>
+  transitionEventStatus(eventId, userId, "CANCELLED");
+
+const completeEvent = (eventId, userId) =>
+  transitionEventStatus(eventId, userId, "COMPLETED");
 
 module.exports = {
   createEvent,
