@@ -230,22 +230,24 @@ const VALID_TRANSITIONS = {
 const transitionEventState = async (userId, eventId, targetStatus) => {
   const event = await getOwnedEvent(userId, eventId);
 
-  const allowedTargets = VALID_TRANSITIONS[event.status];
+  const currentStatus = event.status;
+
+  const allowedTargets = VALID_TRANSITIONS[currentStatus];
 
   if (!allowedTargets) {
-    throw new AppError(`Invalid event status: ${event.status}`, 500);
+    throw new AppError(`Invalid event status: ${currentStatus}`, 500);
   }
 
   if (!allowedTargets.includes(targetStatus)) {
     throw new AppError(
-      `Cannot transition event from ${event.status} to ${targetStatus}`,
+      `Cannot transition event from ${currentStatus} to ${targetStatus}`,
       409,
     );
   }
 
   event.status = targetStatus;
 
-  if (event.status === "PUBLISHED") {
+  if (targetStatus === "PUBLISHED") {
     event.wasEverPublished = true;
   }
 
