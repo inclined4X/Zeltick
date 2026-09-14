@@ -204,7 +204,13 @@ const getOwnedEvent = async (userId, eventId) => {
   const event = await eventRepository.findPublicEventById(eventId);
 
   if (!event) {
-    throw new AppError("Event does not exist", 400);
+    throw new AppError("Event does not exist", 404);
+  }
+
+  const organizer = await organizerRepository.findOrganizerByUserId(userId);
+
+  if (!organizer) {
+    throw new AppError("Organizer does not exist", 403);
   }
 };
 
