@@ -210,7 +210,7 @@ const getOwnedEvent = async (userId, eventId) => {
   const organizer = await organizerRepository.findOrganizerByUserId(userId);
 
   if (!organizer) {
-    throw new AppError("Organizer does not exist", 403);
+    throw new AppError("Organizer does not exist", 404);
   }
 
   if (!event.organizerId.equals(organizer._id)) {
@@ -218,6 +218,17 @@ const getOwnedEvent = async (userId, eventId) => {
   }
 
   return event;
+};
+
+const VALID_TRANSITIONS = {
+  DRAFT: ["PUBLISHED", "CANCELLED"],
+  PUBLISHED: ["CANCELLED", "COMPLETED"],
+  CANCELLED: [],
+  COMPLETED: [],
+};
+
+const transitionStateEvent = async (userId, eventId, targetStatus) => {
+  await getOwnedEvent(userId, eventId);
 };
 
 module.exports = {
