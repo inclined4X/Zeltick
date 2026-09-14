@@ -201,7 +201,7 @@ const getOwnedEvent = async (userId, eventId) => {
     throw new AppError("ID is invalid", 400);
   }
 
-  const event = await eventRepository.findPublicEventById(eventId);
+  const event = await eventRepository.findEventById(eventId);
 
   if (!event) {
     throw new AppError("Event does not exist", 404);
