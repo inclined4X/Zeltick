@@ -105,6 +105,10 @@ const EDITABLE_EVENT_FIELDS = [
 ];
 
 const updateEvent = async (userId, eventId, updateData) => {
+  if (!mongoose.isValidObjectId(eventId)) {
+    throw new AppError("Event ID is invalid", 400);
+  }
+
   const event = await eventRepository.findEventById(eventId);
 
   if (!event) {
@@ -175,13 +179,16 @@ const updateEvent = async (userId, eventId, updateData) => {
     throw new AppError("Start date-time cannot be in the past", 400);
   }
 
-  if (allowedUpdates.venueId) {
+  if (Object.hasOwn(allowedUpdates, "venueId")) {
+    if (!mongoose.isValidObjectId(allowedUpdates.venueId)) {
+      throw new AppError("Venue ID is invalid", 400);
+    }
     const venue = await venueRepository.findVenueById(allowedUpdates.venueId);
-
     if (!venue) {
-      throw new AppError("Venue does not exist", 400);
+      throw new AppError("Venue does not exist", 404);
     }
   }
+
   Object.assign(event, allowedUpdates);
 
   await event.save();
