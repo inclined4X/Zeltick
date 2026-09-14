@@ -27,6 +27,10 @@ const findPublicEventById = async (id) => {
     .populate("venueId", "name location");
 };
 
+const findEventByIdAndDelete = async (id) => {
+  return await Event.findByIdAndDelete(id);
+};
+
 module.exports = {
   createEventRepository,
   findPublishedEvents,
