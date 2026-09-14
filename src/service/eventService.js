@@ -227,7 +227,7 @@ const VALID_TRANSITIONS = {
   COMPLETED: [],
 };
 
-const transitionStateEvent = async (userId, eventId, targetStatus) => {
+const transitionEventState = async (userId, eventId, targetStatus) => {
   const event = await getOwnedEvent(userId, eventId);
 
   const allowedTargets = VALID_TRANSITIONS[event.status];
@@ -249,13 +249,13 @@ const transitionStateEvent = async (userId, eventId, targetStatus) => {
 };
 
 const publishEvent = (eventId, userId) =>
-  transitionEventStatus(eventId, userId, "PUBLISHED");
+  transitionEventState(eventId, userId, "PUBLISHED");
 
 const cancelEvent = (eventId, userId) =>
-  transitionEventStatus(eventId, userId, "CANCELLED");
+  transitionEventState(eventId, userId, "CANCELLED");
 
 const completeEvent = (eventId, userId) =>
-  transitionEventStatus(eventId, userId, "COMPLETED");
+  transitionEventState(eventId, userId, "COMPLETED");
 
 module.exports = {
   createEvent,
