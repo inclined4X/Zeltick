@@ -263,6 +263,19 @@ const cancelEvent = (eventId, userId) =>
 const completeEvent = (eventId, userId) =>
   transitionEventState(eventId, userId, "COMPLETED");
 
+const deleteEvent = async (userId, eventId) => {
+  const event = await getOwnedEvent(userId, eventId);
+
+  if (event.wasEverPublished) {
+    throw new AppError(
+      "Event that has already been published cannot be deleted",
+      409,
+    );
+  }
+
+  return await eventRepository.findEventByIdAndDelete(eventId);
+};
+
 module.exports = {
   createEvent,
   getPublishedEvents,

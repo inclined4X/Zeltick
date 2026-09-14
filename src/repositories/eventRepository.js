@@ -36,4 +36,5 @@ module.exports = {
   findPublishedEvents,
   findPublicEventById,
   findEventById,
+  findEventByIdAndDelete,
 };
