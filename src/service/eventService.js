@@ -150,6 +150,38 @@ const updateEvent = async (userId, eventId, updateData) => {
     }
   }
 
+  const now = new Date();
+
+  const effectiveStart = new Date(
+    allowedUpdates.startDateTime ?? event.startDateTime,
+  );
+
+  const effectiveEnd = new Date(
+    allowedUpdates.endDateTime ?? event.endDateTime,
+  );
+
+  if (isNaN(effectiveStart) || isNaN(effectiveEnd)) {
+    throw new AppError("Invalid date format", 400);
+  }
+
+  if (effectiveStart >= effectiveEnd) {
+    throw new AppError(
+      "the start date-time must be before the end date-time",
+      400,
+    );
+  }
+
+  if (effectiveStart < now) {
+    throw new AppError("Start date-time cannot be in the past", 400);
+  }
+
+  if (allowedUpdates.venueId) {
+    const venue = await venueRepository.findVenueById(allowedUpdates.venueId);
+
+    if (!venue) {
+      throw new AppError("Venue does not exist", 400);
+    }
+  }
   Object.assign(event, allowedUpdates);
 
   await event.save();
