@@ -232,6 +232,10 @@ const transitionEventState = async (userId, eventId, targetStatus) => {
 
   const allowedTargets = VALID_TRANSITIONS[event.status];
 
+  if (!allowedTargets) {
+    throw new AppError(`Invalid event status: ${event.status}`, 500);
+  }
+
   if (!allowedTargets.includes(targetStatus)) {
     throw new AppError(
       `Cannot transition event from ${event.status} to ${targetStatus}`,
