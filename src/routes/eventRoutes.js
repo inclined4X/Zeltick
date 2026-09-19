@@ -19,4 +19,32 @@ router.get("/", eventController.getPublishedEventsController);
 
 router.get("/:id", eventController.getPublicEventByIdController);
 
+router.delete(
+  "/:id",
+  authenticate,
+  authourize("organizer"),
+  eventController.deleteEventController,
+);
+
+router.post(
+  "/:id/publish",
+  authenticate,
+  authourize("organizer"),
+  eventController.publishEventController,
+);
+
+router.post(
+  "/:id/cancel",
+  authenticate,
+  authourize("organizer"),
+  eventController.cancelEventController,
+);
+
+router.post(
+  "/:id/complete",
+  authenticate,
+  authourize("organizer"),
+  eventController.completeEventController,
+);
+
 module.exports = router;
