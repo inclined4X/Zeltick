@@ -75,4 +75,24 @@ const me = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, login, me, verifyEmail, resendVerificationEmail };
+const logout = (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return next(err);
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "Logout successful",
+    });
+  });
+};
+
+module.exports = {
+  signup,
+  login,
+  me,
+  verifyEmail,
+  resendVerificationEmail,
+  logout,
+};
