@@ -108,6 +108,22 @@ const cancelEventController = async (req, res, next) => {
   }
 };
 
+const completeEventController = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const eventId = req.params.id;
+
+    const completedEvent = await eventService.completeEvent(eventId, userId);
+
+    return res.status(200).json({
+      status: "success",
+      data: completedEvent,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createEventController,
   getPublishedEventsController,
