@@ -100,7 +100,7 @@ const cancelEventController = async (req, res, next) => {
     const cancelledEvent = await eventService.cancelEvent(eventId, userId);
 
     return res.status(200).json({
-      status: "sucess",
+      status: "success",
       data: cancelledEvent,
     });
   } catch (err) {
@@ -132,4 +132,5 @@ module.exports = {
   updateEventController,
   publishEventController,
   cancelEventController,
+  completeEventController,
 };
