@@ -8,7 +8,7 @@ const createEventController = async (req, res, next) => {
 
     const event = await eventService.createEvent(eventData, userId);
 
-    return res.status(201).json({ success: true, data: event });
+    return res.status(201).json({ status: "success", data: event });
   } catch (err) {
     next(err);
   }
