@@ -47,4 +47,11 @@ router.post(
   eventController.completeEventController,
 );
 
+router.patch(
+  "/:id",
+  authenticate,
+  authourize("organizer"),
+  eventController.updateEventController,
+);
+
 module.exports = router;
