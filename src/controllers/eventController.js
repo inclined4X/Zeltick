@@ -42,6 +42,19 @@ const getPublicEventByIdController = async (req, res, next) => {
   }
 };
 
+const deleteEventController = async (req, res, next) => {
+  try {
+    const eventId = req.params.id;
+    const userId = req.user._id;
+
+    const event = await eventService.deleteEvent(userId, eventId);
+
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createEventController,
   getPublishedEventsController,
