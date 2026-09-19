@@ -170,7 +170,7 @@ const updateEvent = async (userId, eventId, updateData) => {
 
   if (effectiveStart >= effectiveEnd) {
     throw new AppError(
-      "the start date-time must be before the end date-time",
+      "The start date-time must be before the end date-time",
       400,
     );
   }
