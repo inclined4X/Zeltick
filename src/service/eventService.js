@@ -282,4 +282,5 @@ module.exports = {
   getPublicEventById,
   updateEvent,
   deleteEvent,
+  updateEvent,
 };

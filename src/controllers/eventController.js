@@ -47,9 +47,30 @@ const deleteEventController = async (req, res, next) => {
     const eventId = req.params.id;
     const userId = req.user._id;
 
-    const event = await eventService.deleteEvent(userId, eventId);
+    const deletedEvent = await eventService.deleteEvent(userId, eventId);
 
     res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+};
+
+const updateEventController = async (req, res, next) => {
+  try {
+    const eventId = req.params.id;
+    const userId = req.user._id;
+    const updateData = req.body;
+
+    const updatedEvent = await eventService.updateEvent(
+      userId,
+      eventId,
+      updateData,
+    );
+
+    return res.status(200).json({
+      status: "success",
+      data: updatedEvent,
+    });
   } catch (err) {
     next(err);
   }
@@ -59,4 +80,6 @@ module.exports = {
   createEventController,
   getPublishedEventsController,
   getPublicEventByIdController,
+  deleteEventController,
+  updateEventController,
 };
