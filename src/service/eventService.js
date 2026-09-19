@@ -284,4 +284,6 @@ module.exports = {
   deleteEvent,
   updateEvent,
   publishEvent,
+  cancelEvent,
+  completeEvent,
 };
