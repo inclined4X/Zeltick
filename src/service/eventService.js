@@ -196,7 +196,7 @@ const updateEvent = async (userId, eventId, updateData) => {
   return event;
 };
 
-const getOwnedEvent = async (userId, eventId) => {
+const getOwnedEvent = async (eventId, userId) => {
   if (!mongoose.isValidObjectId(eventId)) {
     throw new AppError("ID is invalid", 400);
   }
@@ -227,8 +227,8 @@ const VALID_TRANSITIONS = {
   COMPLETED: [],
 };
 
-const transitionEventState = async (userId, eventId, targetStatus) => {
-  const event = await getOwnedEvent(userId, eventId);
+const transitionEventState = async (eventId, userId, targetStatus) => {
+  const event = await getOwnedEvent(eventId, userId);
 
   const currentStatus = event.status;
 
@@ -263,8 +263,8 @@ const cancelEvent = (eventId, userId) =>
 const completeEvent = (eventId, userId) =>
   transitionEventState(eventId, userId, "COMPLETED");
 
-const deleteEvent = async (userId, eventId) => {
-  const event = await getOwnedEvent(userId, eventId);
+const deleteEvent = async (eventId, userId) => {
+  const event = await getOwnedEvent(eventId, userId);
 
   if (event.wasEverPublished) {
     throw new AppError(

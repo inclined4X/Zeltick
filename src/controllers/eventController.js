@@ -47,7 +47,7 @@ const deleteEventController = async (req, res, next) => {
     const eventId = req.params.id;
     const userId = req.user._id;
 
-    await eventService.deleteEvent(userId, eventId);
+    await eventService.deleteEvent(eventId, userId);
 
     res.status(204).send();
   } catch (err) {
