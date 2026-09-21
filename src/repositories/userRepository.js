@@ -9,7 +9,9 @@ const createUser = async (userData) => {
 };
 
 const findUserById = async (userId) => {
-  return await User.findById(userId).select("-passwordHash");
+  return await User.findById(userId).select(
+    "-passwordHash -verificationTokenHash -verificationTokenExpiresAt",
+  );
 };
 
 const findUserByVerificationTokenHash = async (verificationTokenHash) => {
