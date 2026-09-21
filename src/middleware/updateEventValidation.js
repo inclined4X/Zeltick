@@ -1,3 +1,5 @@
+const { body } = require("express-validator");
+
 const updateEventValidation = [
   body("title")
     .optional()

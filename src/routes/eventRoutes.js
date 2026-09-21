@@ -4,14 +4,15 @@ const validate = require("../middleware/validate");
 const eventController = require("../controllers/eventController");
 const authourize = require("../middleware/authourize");
 const authenticate = require("../middleware/authenticate");
+const updateEventValidation = require("../middleware/updateEventValidation");
 const router = express.Router();
 
 router.post(
   "/",
-  validateEvent,
-  validate,
   authenticate,
   authourize("organizer"),
+  validateEvent,
+  validate,
   eventController.createEventController,
 );
 
@@ -51,6 +52,8 @@ router.patch(
   "/:id",
   authenticate,
   authourize("organizer"),
+  updateEventValidation,
+  validate,
   eventController.updateEventController,
 );
 
