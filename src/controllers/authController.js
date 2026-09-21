@@ -2,6 +2,7 @@ const signupService = require("../service/signupService");
 const loginService = require("../service/loginService");
 const emailVerificationService = require("../service/emailVerificationService");
 const resendVerificatonService = require("../service/resendVerificationService");
+const AppError = require("../errors/appError");
 
 const signup = async (req, res, next) => {
   try {
