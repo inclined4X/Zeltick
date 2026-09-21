@@ -14,7 +14,7 @@ const login = async (credentials) => {
   const passwordMatch = await argon2.verify(user.passwordHash, password);
 
   if (!passwordMatch) {
-    throw new AppError("Invalid credentials", 401);
+    throw new AppError("Invalid credentials!", 401);
   }
 
   return {

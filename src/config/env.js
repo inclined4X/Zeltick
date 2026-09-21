@@ -7,6 +7,7 @@ const logLevel = process.env.LOG_LEVEL || "info";
 const nodeEnvironment = process.env.NODE_ENV || "development";
 const resendApiKey = process.env.RESEND_APIKEY;
 const appBaseUrl = process.env.APP_BASE_URL;
+const dummyArgonHash = process.env.DUMMY_ARGON_HASH;
 
 if (!Number.isInteger(port) || port < 1024 || port > 65535) {
   throw new Error(
