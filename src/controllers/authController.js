@@ -23,7 +23,7 @@ const verifyEmail = async (req, res, next) => {
     const token = req.query.token;
 
     if (!token) {
-      return next(new AppError("Invalid or expired verification token"));
+      return next(new AppError("Invalid or expired verification token", 400));
     }
 
     await emailVerificationService.verifyEmail(token);
