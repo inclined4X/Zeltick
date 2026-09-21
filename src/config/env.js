@@ -43,6 +43,10 @@ if (!appBaseUrl) {
   throw new Error("App base URL does not exist");
 }
 
+if (!dummyArgonHash) {
+  throw new Error("Dummy argon hash is not configured");
+}
+
 const config = {
   port,
   mongodbUri,
