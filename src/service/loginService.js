@@ -1,6 +1,7 @@
 const argon2 = require("argon2");
 const AppError = require("../errors/appError");
 const userRepository = require("../repositories/userRepository");
+const { dummyArgonHash } = require("../config/env");
 
 const login = async (credentials) => {
   const { email, password } = credentials;
@@ -8,6 +9,7 @@ const login = async (credentials) => {
   const user = await userRepository.findUserByEmail(email);
 
   if (!user) {
+    await argon2.verify(dummyArgonHash, password);
     throw new AppError("Invalid credentials!", 401);
   }
 

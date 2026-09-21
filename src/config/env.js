@@ -55,6 +55,7 @@ const config = {
   nodeEnvironment,
   resendApiKey,
   appBaseUrl,
+  dummyArgonHash,
 };
 
 module.exports = config;
