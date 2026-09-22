@@ -14,6 +14,10 @@ const authenticate = async (req, res, next) => {
       return next(new AppError("user does not exist", 401));
     }
 
+    if (user.status !== "active") {
+      return next(new AppError("User is not active", 403));
+    }
+
     req.user = user;
 
     next();
