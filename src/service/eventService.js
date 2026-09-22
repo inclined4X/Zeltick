@@ -245,6 +245,24 @@ const transitionEventState = async (eventId, userId, targetStatus) => {
     );
   }
 
+  if (targetStatus === "PUBLISHED") {
+    const now = new Date();
+
+    if (event.startDateTime <= now) {
+      throw new AppError(
+        "Event can't be published because start date-time is in the past",
+        409,
+      );
+    }
+
+    if (event.startDateTime >= event.endDateTime) {
+      throw new AppError(
+        "Event can't be published because the start date-time must be before end date-time",
+        409,
+      );
+    }
+  }
+
   event.status = targetStatus;
 
   if (targetStatus === "PUBLISHED") {
