@@ -280,7 +280,6 @@ module.exports = {
   createEvent,
   getPublishedEvents,
   getPublicEventById,
-  updateEvent,
   deleteEvent,
   updateEvent,
   publishEvent,
