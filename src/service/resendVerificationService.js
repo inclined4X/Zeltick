@@ -1,5 +1,4 @@
 const AppError = require("../errors/appError");
-const userRepository = require("../repositories/userRepository");
 const tokenGenerate = require("../utils/token");
 const crypto = require("crypto");
 const sendVerificationEmail = require("./emailService");
@@ -18,13 +17,13 @@ const resendVerficationEmail = async (user) => {
 
   const newVerificationTokenExpiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
+  await sendVerificationEmail(user.email, tokenForEmail);
+
   user.verificationTokenHash = tokenHash;
 
   user.verificationTokenExpiresAt = newVerificationTokenExpiresAt;
 
   await user.save();
-
-  await sendVerificationEmail(user.email, tokenForEmail);
 };
 
 module.exports = { resendVerficationEmail };
