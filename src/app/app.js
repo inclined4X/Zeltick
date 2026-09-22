@@ -10,6 +10,10 @@ const { httpLogger } = require("../utils/logger");
 const cors = require("cors");
 const app = express();
 
+const sessionStore = MongoStore.create({
+  mongoUrl: mongodbUri,
+});
+
 app.use(httpLogger);
 
 app.use(
@@ -26,7 +30,7 @@ app.use(
     secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: mongodbUri }),
+    store: sessionStore,
     cookie: {
       secure: false,
       httpOnly: true,
@@ -40,4 +44,5 @@ app.use("/events", eventRoutes);
 app.use("/auth", authRoutes);
 
 app.use(errorHandler);
+app.locals.sessionStore = sessionStore;
 module.exports = app;

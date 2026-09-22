@@ -23,8 +23,13 @@ const startServer = async function () {
       server.close(async () => {
         try {
           logger.info("Server closed.");
+
+          await app.locals.sessionStore.close();
+          logger.info("Session store closed");
+
           await disconnectDatabase();
           logger.info("Database disconnected");
+
           logger.info("Cleanup complete");
           clearTimeout(forceExit);
           process.exit(0);
