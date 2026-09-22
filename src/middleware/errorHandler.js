@@ -11,6 +11,16 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
+  if (err?.code === 11000) {
+    req.log.warn({ err }, "Duplicate resource");
+
+    return res.status(409).json({
+      error: true,
+      message: "A resource with the provided value already exists",
+      errors: null,
+    });
+  }
+
   req.log.error({ err }, "Request error");
 
   return res.status(500).json({
