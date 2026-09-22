@@ -19,6 +19,10 @@ const login = async (credentials) => {
     throw new AppError("Invalid credentials!", 401);
   }
 
+  if (user.status !== "active") {
+    throw new AppError("Invalid credentials!", 401);
+  }
+
   return {
     id: user._id,
     firstName: user.firstName,
