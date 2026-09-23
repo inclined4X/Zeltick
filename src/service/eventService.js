@@ -72,7 +72,7 @@ const createEvent = async (eventData, userId) => {
 };
 
 const getPublishedEvents = async ({ limit = 20, cursor }) => {
-  if (limit < 1 || limit > 100) {
+  if (!Number.isInteger(limit) || limit < 1 || limit > 100) {
     throw new AppError("limit must be between 1 and 100", 400);
   }
 
