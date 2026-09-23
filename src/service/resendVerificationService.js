@@ -3,7 +3,7 @@ const tokenGenerate = require("../utils/token");
 const crypto = require("crypto");
 const sendVerificationEmail = require("./emailService");
 
-const resendVerficationEmail = async (user) => {
+const resendVerificationEmail = async (user) => {
   if (user.emailVerified) {
     throw new AppError("Email is already verified", 400);
   }
@@ -26,4 +26,4 @@ const resendVerficationEmail = async (user) => {
   await user.save();
 };
 
-module.exports = { resendVerficationEmail };
+module.exports = { resendVerificationEmail };
