@@ -56,6 +56,12 @@ const eventSchema = new Schema(
   },
 );
 
+eventSchema.index({
+  status: 1,
+  startDateTime: 1,
+  _id: 1,
+});
+
 const Event = mongoose.model("Event", eventSchema);
 
 module.exports = Event;
