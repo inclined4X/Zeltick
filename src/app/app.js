@@ -4,7 +4,7 @@ const healthRoutes = require("../routes/healthRoutes");
 const eventRoutes = require("../routes/eventRoutes");
 const authRoutes = require("../routes/authRoutes");
 const session = require("express-session");
-const { sessionSecret, mongodbUri } = require("../config/env");
+const { sessionSecret, mongodbUri, nodeEnvironment } = require("../config/env");
 const { default: MongoStore } = require("connect-mongo");
 const { httpLogger } = require("../utils/logger");
 const cors = require("cors");
@@ -32,7 +32,7 @@ app.use(
     saveUninitialized: false,
     store: sessionStore,
     cookie: {
-      secure: false,
+      secure: nodeEnvironment === "production",
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
     },
