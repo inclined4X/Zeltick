@@ -35,7 +35,8 @@ const findPublishedEvents = async ({ limit, cursor }) => {
     .sort({
       startDateTime: 1,
       _id: 1,
-    });
+    })
+    .limit(limit + 1);
 };
 
 const findPublicEventById = async (id) => {
