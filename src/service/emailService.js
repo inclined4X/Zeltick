@@ -1,5 +1,5 @@
 const { Resend } = require("resend");
-const { resendApiKey, appBaseUrl } = require("../config/env");
+const { resendApiKey, appBaseUrl, emailFrom } = require("../config/env");
 const { logger } = require("../utils/logger");
 const AppError = require("../errors/appError");
 
@@ -10,7 +10,7 @@ const sendVerificationEmail = async (email, token) => {
     const verificationUrl = `${appBaseUrl}/auth/verify-email?token=${encodeURIComponent(token)}`;
 
     const { error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: emailFrom,
       to: [email],
       subject: "Verify your email",
       html: `<p>Click the link to verify your email: <a href="${verificationUrl}">Verify Email</a></p>`,
@@ -20,7 +20,7 @@ const sendVerificationEmail = async (email, token) => {
       throw error;
     }
   } catch (err) {
-    logger.error({ err, email }, "Failed to send email verification");
+    logger.error({ err }, "Failed to send email verification");
     throw new AppError("Failed to send verification email", 500);
   }
 };

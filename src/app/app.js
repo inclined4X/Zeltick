@@ -8,6 +8,7 @@ const { sessionSecret, mongodbUri, nodeEnvironment } = require("../config/env");
 const { default: MongoStore } = require("connect-mongo");
 const { httpLogger } = require("../utils/logger");
 const cors = require("cors");
+const AppError = require("../errors/appError");
 const app = express();
 
 const sessionStore = MongoStore.create({

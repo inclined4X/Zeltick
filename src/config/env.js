@@ -8,6 +8,7 @@ const nodeEnvironment = process.env.NODE_ENV || "development";
 const resendApiKey = process.env.RESEND_APIKEY;
 const appBaseUrl = process.env.APP_BASE_URL;
 const dummyArgonHash = process.env.DUMMY_ARGON_HASH;
+const emailFrom = process.env.EMAIL_FROM;
 
 if (!Number.isInteger(port) || port < 1024 || port > 65535) {
   throw new Error(
@@ -47,6 +48,10 @@ if (!dummyArgonHash) {
   throw new Error("Dummy argon hash is not configured");
 }
 
+if (typeof emailFrom !== "string" || emailFrom.trim() === "") {
+  throw new Error("Email sender is not configured");
+}
+
 const config = {
   port,
   mongodbUri,
@@ -56,6 +61,7 @@ const config = {
   resendApiKey,
   appBaseUrl,
   dummyArgonHash,
+  emailFrom,
 };
 
 module.exports = config;
