@@ -1,4 +1,4 @@
-const encodeCursor = ({ startDateTime, id }) => {
+const encodedCursor = ({ startDateTime, id }) => {
   const payload = JSON.stringify({
     startDateTime,
     id,
@@ -7,7 +7,7 @@ const encodeCursor = ({ startDateTime, id }) => {
   return Buffer.from(payload).toString("base64url");
 };
 
-const decodeCursor = (cursor) => {
+const decodedCursor = (cursor) => {
   try {
     const decode = Buffer.from(cursor, "base64url").toString("utf8");
 
@@ -24,6 +24,6 @@ const decodeCursor = (cursor) => {
 };
 
 module.exports = {
-  encodeCursor,
-  decodeCursor,
+  encodedCursor,
+  decodedCursor,
 };
