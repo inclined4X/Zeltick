@@ -226,7 +226,7 @@ const updateEvent = async (userId, eventId, updateData) => {
 
   await event.save();
 
-  return event;
+  return toPublicEvent(event);
 };
 
 const getOwnedEvent = async (eventId, userId) => {
