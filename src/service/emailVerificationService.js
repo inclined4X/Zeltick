@@ -10,6 +10,7 @@ const verifyEmail = async (tokenFromUrl) => {
 
   const user =
     await userRepository.findUserByVerificationTokenHash(tokenFromUrlHashed);
+
   if (!user) {
     throw new AppError("Invalid or expired verification token", 400);
   }

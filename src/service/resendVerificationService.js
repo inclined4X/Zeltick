@@ -17,13 +17,13 @@ const resendVerificationEmail = async (user) => {
 
   const newVerificationTokenExpiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
-  await sendVerificationEmail(user.email, tokenForEmail);
-
   user.verificationTokenHash = tokenHash;
 
   user.verificationTokenExpiresAt = newVerificationTokenExpiresAt;
 
   await user.save();
+
+  await sendVerificationEmail(user.email, tokenForEmail);
 };
 
 module.exports = { resendVerificationEmail };
