@@ -98,13 +98,15 @@ const getPublishedEvents = async (limit = 20, cursor) => {
   }
 
   const nextCursor = hasNextPage
-    ? encodedCursor({
+    ? encodeCursor({
         startDateTime: events[events.length - 1].startDateTime,
         id: events[events.length - 1]._id,
       })
     : null;
 
-  return { events, nextCursor };
+  const publicEvents = events.map(toPublicEvent);
+
+  return { events: publicEvents, nextCursor };
 };
 
 const getPublicEventById = async (id) => {
