@@ -16,11 +16,16 @@ const createEventController = async (req, res, next) => {
 
 const getPublishedEventsController = async (req, res, next) => {
   try {
-    const events = await eventService.getPublishedEvents();
+    const limit = req.query.limit ? Number(req.query.limit) : 20;
+
+    const cursor = req.query.cursor;
+
+    const results = await eventService.getPublishedEvents({ limit, cursor });
 
     return res.status(200).json({
       status: "success",
-      data: events,
+      data: results.events,
+      nextCursor: results.nextCursor,
     });
   } catch (err) {
     next(err);

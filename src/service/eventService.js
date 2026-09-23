@@ -104,7 +104,7 @@ const getPublishedEvents = async (limit = 20, cursor) => {
       })
     : null;
 
-  return { events, cursor };
+  return { events, nextCursor };
 };
 
 const getPublicEventById = async (id) => {
