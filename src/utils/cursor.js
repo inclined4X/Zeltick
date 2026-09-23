@@ -17,6 +17,10 @@ const decodeCursor = (cursor) => {
       throw new Error("Invalid cursor");
     }
 
+    if (!mongoose.isValidObjectId(parsed.id)) {
+      throw new Error("Invalid cursor");
+    }
+
     return parsed;
   } catch (err) {
     throw new Error("Invalid cursor");
