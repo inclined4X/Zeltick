@@ -45,6 +45,10 @@ app.use("/", healthRoutes);
 app.use("/events", eventRoutes);
 app.use("/auth", authRoutes);
 
+app.use((req, res, next) => {
+  next(new AppError("Route not found", 404));
+});
+
 app.use(errorHandler);
 app.locals.sessionStore = sessionStore;
 module.exports = app;
