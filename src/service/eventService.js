@@ -79,7 +79,7 @@ const getPublishedEvents = async (limit = 20, cursor) => {
   let decodeCursor;
 
   if (cursor) {
-    decodedCursor = decodeCursor(cursor);
+    decodeCursor = decodedCursor(cursor);
     try {
     } catch (err) {
       throw new AppError("Invalid cursor", 400);
@@ -88,12 +88,23 @@ const getPublishedEvents = async (limit = 20, cursor) => {
 
   const events = await eventRepository.findPublishedEvents({
     limit,
-    cursor: decodedCursor,
+    cursor: decodeCursor,
   });
 
   const hasNextPage = events.length > limit;
 
-  return events.map(toPublicEvent);
+  if (hasNextPage) {
+    events.pop();
+  }
+
+  const nextCursor = hasNextPage
+    ? encodedCursor({
+        startDateTime: events[events.length - 1].startDateTime,
+        id: events[events.length - 1]._id,
+      })
+    : null;
+
+  return { events, cursor };
 };
 
 const getPublicEventById = async (id) => {
