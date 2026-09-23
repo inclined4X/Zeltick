@@ -8,10 +8,28 @@ const findEventById = async (id) => {
   return await Event.findById(id);
 };
 
-const findPublishedEvents = async () => {
-  return await Event.find({
+const findPublishedEvents = async ({ limit, cursor }) => {
+  const query = {
     status: "PUBLISHED",
-  })
+  };
+
+  if (cursor) {
+    query.$or = [
+      {
+        startDateTime: {
+          $gt: cursor.startDateTime,
+        },
+      },
+      {
+        startDateTime: cursor.startDateTime,
+        _id: {
+          $gt: cursor.id,
+        },
+      },
+    ];
+  }
+
+  return await Event.find(query)
     .populate("organizerId", "name description logo website socialLinks")
     .populate("venueId", "name location");
 };
