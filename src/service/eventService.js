@@ -71,7 +71,7 @@ const createEvent = async (eventData, userId) => {
   return await eventRepository.createEventRepository(eventDataWithOrganizerId);
 };
 
-const getPublishedEvents = async (limit = 20, cursor) => {
+const getPublishedEvents = async ({ limit = 20, cursor }) => {
   if (limit < 1 || limit > 100) {
     throw new AppError("limit must be between 1 and 100", 400);
   }
