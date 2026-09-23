@@ -1,3 +1,5 @@
+const { default: mongoose } = require("mongoose");
+
 const encodeCursor = ({ startDateTime, id }) => {
   const payload = JSON.stringify({
     startDateTime,
