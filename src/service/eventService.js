@@ -79,8 +79,8 @@ const getPublishedEvents = async (limit = 20, cursor) => {
   let decodedCursor;
 
   if (cursor) {
-    decodedCursor = decodeCursor(cursor);
     try {
+      decodedCursor = decodeCursor(cursor);
     } catch (err) {
       throw new AppError("Invalid cursor", 400);
     }
