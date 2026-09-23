@@ -3,7 +3,7 @@ const AppError = require("../errors/appError");
 const eventRepository = require("../repositories/eventRepository");
 const organizerRepository = require("../repositories/organizerRepository");
 const venueRepository = require("../repositories/venueRepository");
-const { decodedCursor, encodedCursor } = require("../utils/cursor");
+const { decodeCursor, encodeCursor } = require("../utils/cursor");
 
 const toPublicEvent = (event) => {
   return {
@@ -76,10 +76,10 @@ const getPublishedEvents = async (limit = 20, cursor) => {
     throw new AppError("limit must be between 1 and 100", 400);
   }
 
-  let decodeCursor;
+  let decodedCursor;
 
   if (cursor) {
-    decodeCursor = decodedCursor(cursor);
+    decodedCursor = decodeCursor(cursor);
     try {
     } catch (err) {
       throw new AppError("Invalid cursor", 400);
@@ -88,7 +88,7 @@ const getPublishedEvents = async (limit = 20, cursor) => {
 
   const events = await eventRepository.findPublishedEvents({
     limit,
-    cursor: decodeCursor,
+    cursor: decodedCursor,
   });
 
   const hasNextPage = events.length > limit;
