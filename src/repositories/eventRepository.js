@@ -31,7 +31,11 @@ const findPublishedEvents = async ({ limit, cursor }) => {
 
   return await Event.find(query)
     .populate("organizerId", "name description logo website socialLinks")
-    .populate("venueId", "name location");
+    .populate("venueId", "name location")
+    .sort({
+      startDateTime: 1,
+      _id: 1,
+    });
 };
 
 const findPublicEventById = async (id) => {
