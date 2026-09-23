@@ -45,7 +45,7 @@ const createEvent = async (eventData, userId) => {
 
   if (start >= end)
     throw new AppError(
-      "The start date-time cant be greater than the end date time",
+      "The start date-time can't be greater than the end date time",
       400,
     );
 
