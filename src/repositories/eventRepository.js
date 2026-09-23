@@ -11,7 +11,6 @@ const findEventById = async (id) => {
 const findPublishedEvents = async () => {
   return await Event.find({
     status: "PUBLISHED",
-    wasEverPublished: true,
   })
     .populate("organizerId", "name description logo website socialLinks")
     .populate("venueId", "name location");
