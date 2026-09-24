@@ -8,8 +8,8 @@ const findOrganizerByUserId = async (userId) => {
   return await Organizer.findOne({ userId });
 };
 
-const createOrganizer = async (organizerData) => {
-  return await Organizer.create(organizerData);
+const createOrganizer = async (organizerData, session) => {
+  return await Organizer.create([organizerData], { session });
 };
 
 module.exports = {
