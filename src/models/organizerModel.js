@@ -5,6 +5,7 @@ const organizerSchema = new Schema(
     userId: {
       type: mongoose.Schema.ObjectId,
       required: true,
+      unique:true,
       ref: "User",
     },
 
