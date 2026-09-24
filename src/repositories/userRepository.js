@@ -31,4 +31,5 @@ module.exports = {
   createUser,
   findUserById,
   findUserByVerificationTokenHash,
+  updateUserWithRole,
 };

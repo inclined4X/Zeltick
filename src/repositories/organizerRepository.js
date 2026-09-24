@@ -15,4 +15,5 @@ const createOrganizer = async (organizerData, session) => {
 module.exports = {
   findOrganizerById,
   findOrganizerByUserId,
+  createOrganizer,
 };
