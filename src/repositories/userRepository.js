@@ -18,6 +18,14 @@ const findUserByVerificationTokenHash = async (verificationTokenHash) => {
   return await User.findOne({ verificationTokenHash });
 };
 
+const updateUserWithRole = async (userId, role, session) => {
+  return await User.updateOne(
+    { _id: userId },
+    { $addToSet: { roles: role } },
+    { session },
+  );
+};
+
 module.exports = {
   findUserByEmail,
   createUser,
