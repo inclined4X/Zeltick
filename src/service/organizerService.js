@@ -25,8 +25,15 @@ const becomeOrganizer = async (userId, organizerData) => {
 
   try {
     await organizerRepository.createOrganizer(organizerData, session);
+
     await userRepository.updateUserWithRole(userId, "organizer", session);
   } finally {
     await session.endSession();
   }
+
+  user.roles.push("organizer");
+
+  await user.save();
+
+  return organizer;
 };
