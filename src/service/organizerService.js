@@ -19,8 +19,8 @@ const becomeOrganizer = async (userId, organizerData) => {
   const existingOrganizer =
     await organizerRepository.findOrganizerByUserId(userId);
 
-  if (!existingOrganizer) {
-    throw new AppError("Organizer does not exist", 404);
+  if (existingOrganizer) {
+    throw new AppError("Organizer already exists", 409);
   }
 
   try {
