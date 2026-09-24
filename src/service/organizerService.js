@@ -22,4 +22,11 @@ const becomeOrganizer = async (userId, organizerData) => {
   if (!existingOrganizer) {
     throw new AppError("Organizer does not exist", 404);
   }
+
+  try {
+    await organizerRepository.createOrganizer(organizerData, session);
+    await userRepository.updateUserWithRole(userId, "organizer", session);
+  } finally {
+    await session.endSession();
+  }
 };
