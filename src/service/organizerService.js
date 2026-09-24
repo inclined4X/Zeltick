@@ -3,8 +3,6 @@ const userRepository = require("../repositories/userRepository");
 const organizerRepository = require("../repositories/organizerRepository");
 const { default: mongoose } = require("mongoose");
 
-const session = await mongoose.startSession();
-
 const becomeOrganizer = async (userId, organizerData) => {
   const user = await userRepository.findUserById(userId);
 
@@ -23,10 +21,14 @@ const becomeOrganizer = async (userId, organizerData) => {
     throw new AppError("Organizer already exists", 409);
   }
 
-  try {
-    await organizerRepository.createOrganizer(organizerData, session);
+  const session = await mongoose.startSession();
 
-    await userRepository.updateUserWithRole(userId, "organizer", session);
+  try {
+    await session.withTransaction(async () => {
+      await organizerRepository.createOrganizer(organizerData, session);
+
+      await userRepository.updateUserWithRole(userId, "organizer", session);
+    });
   } finally {
     await session.endSession();
   }
