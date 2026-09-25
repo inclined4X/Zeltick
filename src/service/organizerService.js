@@ -47,11 +47,11 @@ const becomeOrganizerService = async (userId, organizerData) => {
   }
 };
 
-const OrganizerMe = async (userId) => {
+const getMyOrganizerProfile = async (userId) => {
   const organizer = await organizerRepository.findOrganizerByUserId(userId);
 
   if (!organizer) {
-    throw new AppError("Organizer does not exist");
+    throw new AppError("Organizer does not exist", 404);
   }
 
   return organizer;
@@ -59,4 +59,5 @@ const OrganizerMe = async (userId) => {
 
 module.exports = {
   becomeOrganizerService,
+  getMyOrganizerProfile,
 };
