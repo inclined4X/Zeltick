@@ -31,7 +31,7 @@ const becomeOrganizer = async (userId, organizerData) => {
   try {
     const organizer = await session.withTransaction(async () => {
       const [createdOrganizer] = await organizerRepository.createOrganizer(
-        organizerData,
+        organizerDetails,
         session,
       );
 
@@ -44,6 +44,8 @@ const becomeOrganizer = async (userId, organizerData) => {
   } finally {
     await session.endSession();
   }
+};
 
-  return organizer;
+module.exports = {
+  becomeOrganizer,
 };
