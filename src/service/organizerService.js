@@ -3,7 +3,7 @@ const userRepository = require("../repositories/userRepository");
 const organizerRepository = require("../repositories/organizerRepository");
 const { default: mongoose } = require("mongoose");
 
-const becomeOrganizer = async (userId, organizerData) => {
+const becomeOrganizerService = async (userId, organizerData) => {
   const user = await userRepository.findUserById(userId);
 
   if (!user) {
@@ -47,5 +47,5 @@ const becomeOrganizer = async (userId, organizerData) => {
 };
 
 module.exports = {
-  becomeOrganizer,
+  becomeOrganizerService,
 };
