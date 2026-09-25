@@ -21,6 +21,11 @@ const becomeOrganizer = async (userId, organizerData) => {
     throw new AppError("Organizer already exists", 409);
   }
 
+  const organizerDetails = {
+    ...organizerData,
+    userId,
+  };
+
   const session = await mongoose.startSession();
 
   try {
@@ -32,10 +37,6 @@ const becomeOrganizer = async (userId, organizerData) => {
   } finally {
     await session.endSession();
   }
-
-  user.roles.push("organizer");
-
-  await user.save();
 
   return organizer;
 };
