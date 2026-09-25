@@ -29,11 +29,18 @@ const becomeOrganizer = async (userId, organizerData) => {
   const session = await mongoose.startSession();
 
   try {
-    await session.withTransaction(async () => {
-      await organizerRepository.createOrganizer(organizerData, session);
+    const organizer = await session.withTransaction(async () => {
+      const [createdOrganizer] = await organizerRepository.createOrganizer(
+        organizerData,
+        session,
+      );
 
       await userRepository.updateUserWithRole(userId, "organizer", session);
+
+      return createdOrganizer;
     });
+
+    return organizer;
   } finally {
     await session.endSession();
   }
