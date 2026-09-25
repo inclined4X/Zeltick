@@ -45,7 +45,7 @@ app.use(
 app.use("/", healthRoutes);
 app.use("/events", eventRoutes);
 app.use("/auth", authRoutes);
-app.use("/organizer", organizerRoutes);
+app.use("/organizers", organizerRoutes);
 
 app.use((req, res, next) => {
   next(new AppError("Route not found", 404));
