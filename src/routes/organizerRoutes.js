@@ -6,7 +6,7 @@ const organizerValidation = require("../middleware/organizerValidation");
 const validate = require("../middleware/validate");
 
 router.post(
-  "/become-organizer",
+  "/",
   authenticate,
   organizerValidation.validateBecomeOrganizer,
   validate,
