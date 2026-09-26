@@ -135,13 +135,6 @@ const updateOrganizerValidation = [
     .trim()
     .isURL()
     .withMessage("facebook must be a valid URL"),
-
-  body("email")
-    .optional({ nullable: false })
-    .trim()
-    .isEmail()
-    .withMessage("email must be valid")
-    .normalizeEmail(),
 ];
 
 module.exports = { validateBecomeOrganizer, updateOrganizerValidation };
