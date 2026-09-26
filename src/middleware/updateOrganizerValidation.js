@@ -16,4 +16,16 @@ const updateOrganizerValidation = [
     .trim()
     .isLength({ min: 10, max: 2000 })
     .withMessage("Description must be between 10 and 2000 characters"),
+
+  body("contactPhone")
+    .optional()
+    .trim()
+    .isString()
+    .withMessage("Contact phone must be a string"),
+
+  body("website")
+    .optional()
+    .trim()
+    .isURL()
+    .withMessage("Website must be a valid URL"),
 ];
