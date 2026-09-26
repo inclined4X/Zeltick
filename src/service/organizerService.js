@@ -47,7 +47,7 @@ const becomeOrganizerService = async (userId, organizerData) => {
   }
 };
 
-const getMyOrganizerProfile = async (userId) => {
+const getMyOrganizerProfileService = async (userId) => {
   const organizer = await organizerRepository.findOrganizerByUserId(userId);
 
   if (!organizer) {
@@ -59,5 +59,5 @@ const getMyOrganizerProfile = async (userId) => {
 
 module.exports = {
   becomeOrganizerService,
-  getMyOrganizerProfile,
+  getMyOrganizerProfileService,
 };
