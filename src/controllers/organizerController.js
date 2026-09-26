@@ -35,7 +35,27 @@ const getMyOrganizerProfileController = async (req, res, next) => {
   }
 };
 
+const updateOrganizerController = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const updateData = req.body;
+
+    const updatedOrganizer = await organizerService.updateOrganizerService(
+      userId,
+      updateData,
+    );
+
+    return res.status(200).json({
+      status: "success",
+      data: updatedOrganizer,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   becomeOrganizerController,
   getMyOrganizerProfileController,
+  updateOrganizerController,
 };

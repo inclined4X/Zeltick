@@ -65,7 +65,7 @@ const EDITABLE_ORGANIZER_FIELDS = [
   "website",
 ];
 
-const updateOrganizer = async (userId, updateData) => {
+const updateOrganizerService = async (userId, updateData) => {
   const organizer = await organizerRepository.findOrganizerByUserId(userId);
 
   if (!organizer) {
@@ -98,7 +98,7 @@ const updateOrganizer = async (userId, updateData) => {
     }
   }
 
-  if (object.hasOwn(updateData, "socialLinks")) {
+  if (Object.hasOwn(updateData, "socialLinks")) {
     allowedUpdates.socialLinks = {
       ...organizer.socialLinks,
       ...updateData.socialLinks,
@@ -115,4 +115,5 @@ const updateOrganizer = async (userId, updateData) => {
 module.exports = {
   becomeOrganizerService,
   getMyOrganizerProfileService,
+  updateOrganizerService,
 };
