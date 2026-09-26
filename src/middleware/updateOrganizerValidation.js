@@ -29,6 +29,12 @@ const updateOrganizerValidation = [
     .isURL()
     .withMessage("Website must be a valid URL"),
 
+  body("logo")
+    .optional()
+    .trim()
+    .isURL()
+    .withMessage("Logo must be a valid URL"),
+
   body("socialLinks")
     .optional()
     .isObject()
@@ -59,3 +65,5 @@ const updateOrganizerValidation = [
     .withMessage("email must be valid")
     .normalizeEmail(),
 ];
+
+module.exports = updateOrganizerValidation;
