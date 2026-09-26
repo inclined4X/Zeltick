@@ -84,7 +84,7 @@ const updateOrganizer = async (userId, updateData) => {
     (fields) => !EDITABLE_ORGANIZER_FIELDS.includes(fields),
   );
 
-  if (invalidFields > 0) {
+  if (invalidFields.length > 0) {
     throw new AppError(
       `The following fields can't be updated: ${invalidFields.join(", ")}`,
       400,
