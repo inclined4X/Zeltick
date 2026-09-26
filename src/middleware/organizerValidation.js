@@ -74,7 +74,7 @@ const validateBecomeOrganizer = [
 
 const updateOrganizerValidation = [
   body("name")
-    .optional({ nullable: false })
+    .optional()
     .isString()
     .withMessage("Name must be a string")
     .trim()
@@ -82,59 +82,71 @@ const updateOrganizerValidation = [
     .withMessage("Name must be between 2 and 100 characters"),
 
   body("description")
-    .optional({ nullable: false })
+    .optional({ values: "null" })
     .isString()
-    .withMessage("Desription must be a string")
+    .withMessage("Description must be a string")
     .trim()
     .isLength({ min: 10, max: 2000 })
     .withMessage("Description must be between 10 and 2000 characters"),
 
   body("contactPhone")
-    .optional({ nullable: false })
-    .trim()
+    .optional({ values: "null" })
     .isString()
-    .withMessage("Contact phone must be a string"),
-
-  body("website")
-    .optional({ nullable: false })
-    .trim()
-    .isURL()
-    .withMessage("Website must be a valid URL"),
+    .withMessage("Contact phone must be a string")
+    .trim(),
 
   body("logo")
-    .optional({ nullable: false })
+    .optional({ values: "null" })
+    .isString()
+    .withMessage("Logo must be a string")
     .trim()
     .isURL()
     .withMessage("Logo must be a valid URL"),
 
+  body("website")
+    .optional({ values: "null" })
+    .isString()
+    .withMessage("Website must be a string")
+    .trim()
+    .isURL()
+    .withMessage("Website must be a valid URL"),
+
   body("socialLinks")
-    .optional({ nullable: false })
+    .optional({ values: "null" })
     .isObject()
     .withMessage("Social links must be an object"),
 
   body("socialLinks.instagram")
-    .optional({ nullable: false })
+    .optional({ values: "null" })
+    .isString()
+    .withMessage("Instagram must be a string")
     .trim()
     .isURL()
     .withMessage("Instagram must be a valid URL"),
 
   body("socialLinks.twitter")
-    .optional({ nullable: false })
+    .optional({ values: "null" })
+    .isString()
+    .withMessage("Twitter must be a string")
     .trim()
     .isURL()
-    .withMessage("Instagram must be a valid URL"),
+    .withMessage("Twitter must be a valid URL"),
 
   body("socialLinks.linkedin")
-    .optional({ nullable: false })
+    .optional({ values: "null" })
+    .isString()
+    .withMessage("LinkedIn must be a string")
     .trim()
     .isURL()
-    .withMessage("Linkedin must be a valid URL"),
+    .withMessage("LinkedIn must be a valid URL"),
 
   body("socialLinks.facebook")
-    .optional({ nullable: false })
+    .optional({ values: "null" })
+    .isString()
+    .withMessage("Facebook must be a string")
     .trim()
     .isURL()
-    .withMessage("facebook must be a valid URL"),
+    .withMessage("Facebook must be a valid URL"),
 ];
 
 module.exports = { validateBecomeOrganizer, updateOrganizerValidation };
