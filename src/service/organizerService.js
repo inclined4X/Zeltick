@@ -63,7 +63,6 @@ const EDITABLE_ORGANIZER_FIELDS = [
   "contactPhone",
   "logo",
   "website",
-  "socialLinks",
 ];
 
 const updateOrganizer = async (userId, updateData) => {
@@ -80,7 +79,10 @@ const updateOrganizer = async (userId, updateData) => {
   }
 
   const invalidFields = requestedFields.filter(
-    (fields) => !EDITABLE_ORGANIZER_FIELDS.includes(fields),
+    (field) =>
+      !EDITABLE_ORGANIZER_FIELDS.includes(field) &&
+      field !== "socialLinks" &&
+      field !== "email",
   );
 
   if (invalidFields.length > 0) {
