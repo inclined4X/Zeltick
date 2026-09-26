@@ -57,6 +57,24 @@ const getMyOrganizerProfileService = async (userId) => {
   return organizer;
 };
 
+const EDITABLE_ORGANIZER_FIELDS = [
+  "name",
+  "descripton",
+  "contactPhone",
+  "logo",
+  "website",
+  "socialLinks",
+  "email",
+];
+
+const updateOrganizer = async (userId, updateData) => {
+  const organizer = await organizerRepository.findOrganizerByUserId(userId);
+
+  if (!organizer) {
+    throw new AppError("Organizer does not exist");
+  }
+};
+
 module.exports = {
   becomeOrganizerService,
   getMyOrganizerProfileService,
