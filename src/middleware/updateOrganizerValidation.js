@@ -2,7 +2,7 @@ const { body } = require("express-validator");
 
 const updateOrganizerValidation = [
   body("name")
-    .optional()
+    .optional({ nullable: false })
     .isString()
     .withMessage("Name must be a string")
     .trim()
@@ -10,7 +10,7 @@ const updateOrganizerValidation = [
     .withMessage("Name must be between 2 and 100 characters"),
 
   body("description")
-    .optional()
+    .optional({ nullable: false })
     .isString()
     .withMessage("Desription must be a string")
     .trim()
@@ -18,48 +18,48 @@ const updateOrganizerValidation = [
     .withMessage("Description must be between 10 and 2000 characters"),
 
   body("contactPhone")
-    .optional()
+    .optional({ nullable: false })
     .trim()
     .isString()
     .withMessage("Contact phone must be a string"),
 
   body("website")
-    .optional()
+    .optional({ nullable: false })
     .trim()
     .isURL()
     .withMessage("Website must be a valid URL"),
 
   body("logo")
-    .optional()
+    .optional({ nullable: false })
     .trim()
     .isURL()
     .withMessage("Logo must be a valid URL"),
 
   body("socialLinks")
-    .optional()
+    .optional({ nullable: false })
     .isObject()
     .withMessage("Social links must be an object"),
 
   body("socialLinks.instagram")
-    .optional()
+    .optional({ nullable: false })
     .trim()
     .isURL()
     .withMessage("Instagram must be a valid URL"),
 
   body("socialLinks.twitter")
-    .optional()
+    .optional({ nullable: false })
     .trim()
     .isURL()
     .withMessage("Instagram must be a valid URL"),
 
   body("socialLinks.linkedin")
-    .optional()
+    .optional({ nullable: false })
     .trim()
     .isURL()
     .withMessage("Linkedin must be a valid URL"),
 
   body("email")
-    .optional()
+    .optional({ nullable: false })
     .trim()
     .isEmail()
     .withMessage("email must be valid")
