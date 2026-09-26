@@ -100,6 +100,13 @@ const updateOrganizer = async (userId, updateData) => {
     }
   }
 
+  if (object.hasOwn(updateData, "socialLinks")) {
+    allowedUpdates.socialLinks = {
+      ...organizer.socialLinks,
+      ...updateData.socialLinks,
+    };
+  }
+
   Object.assign(organizer, allowedUpdates);
 
   await organizer.save();
