@@ -21,4 +21,13 @@ router.get(
   organizerController.getMyOrganizerProfileController,
 );
 
+router.patch(
+  "/me",
+  authenticate,
+  authourize("organizer"),
+  organizerValidation.updateOrganizerValidation,
+  validate,
+  organizerController.updateOrganizerController,
+);
+
 module.exports = router;
