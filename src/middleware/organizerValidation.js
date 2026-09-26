@@ -19,11 +19,6 @@ const validateBecomeOrganizer = [
     .isLength({ min: 10, max: 2000 })
     .withMessage("Description character length must be between 10 and 2000"),
 
-  body("email")
-    .not()
-    .exists()
-    .withMessage("Email must not be provided when becoming an organizer"),
-
   body("contactPhone")
     .optional()
     .trim()
