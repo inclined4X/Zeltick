@@ -83,6 +83,21 @@ const updateOrganizer = async (userId, updateData) => {
   const invalidFields = requestedFields.filter(
     (fields) => !EDITABLE_ORGANIZER_FIELDS.includes(fields),
   );
+
+  if (invalidFields > 0) {
+    throw new AppError(
+      `The following fields can't be updated: ${invalidFields.join(", ")}`,
+      400,
+    );
+  }
+
+  const allowedUpdates = {};
+
+  for (const field of EDITABLE_ORGANIZER_FIELDS) {
+    if (Object.hasOwn(updateData, field)) {
+      allowedUpdates[field] = updateData[field];
+    }
+  }
 };
 
 module.exports = {
