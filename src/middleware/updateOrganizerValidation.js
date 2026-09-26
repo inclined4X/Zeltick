@@ -58,6 +58,12 @@ const updateOrganizerValidation = [
     .isURL()
     .withMessage("Linkedin must be a valid URL"),
 
+  body("socialLinks.facebook")
+    .optional({ nullable: false })
+    .trim()
+    .isURL()
+    .withMessage("facebook must be a valid URL"),
+
   body("email")
     .optional({ nullable: false })
     .trim()
