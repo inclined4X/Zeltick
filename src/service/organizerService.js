@@ -59,12 +59,11 @@ const getMyOrganizerProfileService = async (userId) => {
 
 const EDITABLE_ORGANIZER_FIELDS = [
   "name",
-  "descripton",
+  "description",
   "contactPhone",
   "logo",
   "website",
   "socialLinks",
-  "email",
 ];
 
 const updateOrganizer = async (userId, updateData) => {
@@ -98,6 +97,12 @@ const updateOrganizer = async (userId, updateData) => {
       allowedUpdates[field] = updateData[field];
     }
   }
+
+  Object.assign(organizer, allowedUpdates);
+
+  await organizer.save();
+
+  return organizer;
 };
 
 module.exports = {
