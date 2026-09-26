@@ -80,9 +80,7 @@ const updateOrganizer = async (userId, updateData) => {
 
   const invalidFields = requestedFields.filter(
     (field) =>
-      !EDITABLE_ORGANIZER_FIELDS.includes(field) &&
-      field !== "socialLinks" &&
-      field !== "email",
+      !EDITABLE_ORGANIZER_FIELDS.includes(field) && field !== "socialLinks",
   );
 
   if (invalidFields.length > 0) {
