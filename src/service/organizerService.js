@@ -71,8 +71,18 @@ const updateOrganizer = async (userId, updateData) => {
   const organizer = await organizerRepository.findOrganizerByUserId(userId);
 
   if (!organizer) {
-    throw new AppError("Organizer does not exist");
+    throw new AppError("Organizer does not exist", 404);
   }
+
+  const requestedFields = Object.keys(updateData);
+
+  if (requestedFields.length === 0) {
+    throw new AppError("No fields provided for this update", 400);
+  }
+
+  const invalidFields = requestedFields.filter(
+    (fields) => !EDITABLE_ORGANIZER_FIELDS.includes(fields),
+  );
 };
 
 module.exports = {
