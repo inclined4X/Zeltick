@@ -9,7 +9,7 @@ const updateOrganizerValidation = [
     .isLength({ min: 2, max: 100 })
     .withMessage("Name must be between 2 and 100 characters"),
 
-  body(description)
+  body("description")
     .optional()
     .isString()
     .withMessage("Desription must be a string")
@@ -28,4 +28,34 @@ const updateOrganizerValidation = [
     .trim()
     .isURL()
     .withMessage("Website must be a valid URL"),
+
+  body("socialLinks")
+    .optional()
+    .isObject()
+    .withMessage("Social links must be an object"),
+
+  body("socialLinks.instagram")
+    .optional()
+    .trim()
+    .isURL()
+    .withMessage("Instagram must be a valid URL"),
+
+  body("socialLinks.twitter")
+    .optional()
+    .trim()
+    .isURL()
+    .withMessage("Instagram must be a valid URL"),
+
+  body("socialLinks.linkedin")
+    .optional()
+    .trim()
+    .isURL()
+    .withMessage("Linkedin must be a valid URL"),
+
+  body("email")
+    .optional()
+    .trim()
+    .isEmail()
+    .withMessage("email must be valid")
+    .normalizeEmail(),
 ];
