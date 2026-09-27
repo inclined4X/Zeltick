@@ -69,7 +69,7 @@ const updateOrganizerService = async (userId, updateData) => {
   const organizer = await organizerRepository.findOrganizerByUserId(userId);
 
   if (!organizer) {
-    throw new AppError("Organizer does not exist", 404);
+    throw new AppError("Organizer profile does not exist", 404);
   }
 
   const requestedFields = Object.keys(updateData);
