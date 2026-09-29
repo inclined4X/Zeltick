@@ -20,7 +20,7 @@ const verifyEmail = async (tokenFromUrl) => {
     throw new AppError("Token has expired or token is invalid", 400);
   }
 
-  organizer.email = pendingEmail;
+  organizer.email = organizer.pendingEmail;
 
   organizer.pendingEmail = undefined;
 
