@@ -1,5 +1,6 @@
 const organizerService = require("../service/organizerService");
 const verifyOrganizerEmailService = require("../service/verifyOrganizerEmailService");
+const resendOrganizerEmailService = require("../service/resendOrganizerEmailService");
 
 const becomeOrganizerController = async (req, res, next) => {
   try {
@@ -74,9 +75,25 @@ const verifyOrganizerEmailController = async (req, res, next) => {
   }
 };
 
+const resendOrganizerVerificationEmailController = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+
+    await resendOrganizerEmailService.resendOrganizerVerificationEmail(userId);
+
+    return res.status(200).json({
+      status: "success",
+      message: "Verification has been resent",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   becomeOrganizerController,
   getMyOrganizerProfileController,
   updateOrganizerController,
   verifyOrganizerEmailController,
+  resendOrganizerVerificationEmailController,
 };
