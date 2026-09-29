@@ -1,4 +1,5 @@
 const organizerService = require("../service/organizerService");
+const verifyOrganizerEmailService = require("../service/verifyOrganizerEmailService");
 
 const becomeOrganizerController = async (req, res, next) => {
   try {
@@ -52,6 +53,24 @@ const updateOrganizerController = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+const verifyOrganizerEmailController = async (req, res, next) => {
+  try {
+    const token = req.query.token;
+
+    if (!token) {
+      return next(new AppError("Invalid or expired verification token", 400));
+    }
+
+    const organizer =
+      await verifyOrganizerEmailService.verifyOrganizerEmail(token);
+
+    return res.status(200).json({
+      status: "success",
+      data: organizer,
+    });
+  } catch (err) {}
 };
 
 module.exports = {

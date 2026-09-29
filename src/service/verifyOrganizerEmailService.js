@@ -1,7 +1,8 @@
 const crypto = require("crypto");
 const organizerRepository = require("../repositories/organizerRepository");
 const AppError = require("../errors/appError");
-const verifyEmail = async (tokenFromUrl) => {
+
+const verifyOrganizerEmail = async (tokenFromUrl) => {
   const tokenFromUrlHashed = crypto
     .createHash("sha256")
     .update(tokenFromUrl)
@@ -32,3 +33,5 @@ const verifyEmail = async (tokenFromUrl) => {
 
   return organizer;
 };
+
+module.exports = { verifyOrganizerEmail };
