@@ -23,7 +23,7 @@ const resendVerificationEmail = async (user) => {
 
   await user.save();
 
-  await sendVerificationEmail(user.email, tokenForEmail);
+  await sendVerificationEmail(user.email, tokenForEmail, "user");
 };
 
 module.exports = { resendVerificationEmail };
