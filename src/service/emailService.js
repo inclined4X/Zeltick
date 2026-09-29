@@ -5,9 +5,16 @@ const AppError = require("../errors/appError");
 
 const resend = new Resend(resendApiKey);
 
-const sendVerificationEmail = async (email, token) => {
+const sendVerificationEmail = async (email, token, role) => {
   try {
-    const verificationUrl = `${appBaseUrl}/auth/verify-email?token=${encodeURIComponent(token)}`;
+    let verificationUrl;
+    if (role === "user") {
+      verificationUrl = `${appBaseUrl}/auth/verify-email?token=${encodeURIComponent(token)}`;
+    } else if (role === "organizer") {
+      verificationUrl = `${appBaseUrl}/organizers/verify-email?token=${encodeURIComponent(token)}`;
+    } else {
+      throw new AppError("Invalid verification role", 400);
+    }
 
     const { error } = await resend.emails.send({
       from: emailFrom,
