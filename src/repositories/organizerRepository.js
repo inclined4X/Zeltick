@@ -12,6 +12,10 @@ const createOrganizer = async (organizerData, session) => {
   return await Organizer.create([organizerData], { session });
 };
 
+const findOrganizerByHashedToken = async (token) => {
+  return await Organizer.findOne({ emailChangeTokenHash });
+};
+
 module.exports = {
   findOrganizerById,
   findOrganizerByUserId,
