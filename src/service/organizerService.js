@@ -24,7 +24,6 @@ const becomeOrganizerService = async (userId, organizerData) => {
   const organizerDetails = {
     ...organizerData,
     userId,
-    email: user.email,
   };
 
   const session = await mongoose.startSession();
@@ -111,6 +110,8 @@ const updateOrganizerService = async (userId, updateData) => {
 
   return organizer;
 };
+
+const updateOrganizerEmail = async (userId) => {};
 
 module.exports = {
   becomeOrganizerService,
