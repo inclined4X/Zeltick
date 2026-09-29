@@ -25,14 +25,23 @@ const becomeOrganizerService = async (userId, organizerData) => {
 
   const organizerRawToken = tokenGenerate();
 
-  const organizerVerificationToken = crypto
+  const emailChangeTokenHash = crypto
     .createHash("sha256")
     .update(organizerRawToken)
     .digest("hex");
 
+  const emailChangeTokenExpiresAt = new Date(Date.now() + 15 * 60 * 1000);
+
+  const email = null;
+  const pendingEmail = organizerData.email;
+
   const organizerDetails = {
     ...organizerData,
     userId,
+    email,
+    pendingEmail,
+    emailChangeTokenHash,
+    emailChangeTokenExpiresAt,
   };
 
   const session = await mongoose.startSession();
