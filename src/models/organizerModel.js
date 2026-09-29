@@ -5,7 +5,7 @@ const organizerSchema = new Schema(
     userId: {
       type: mongoose.Schema.ObjectId,
       required: true,
-      unique:true,
+      unique: true,
       ref: "User",
     },
 
@@ -26,14 +26,31 @@ const organizerSchema = new Schema(
 
     email: {
       type: String,
-      required: [true, "email is required"],
-      unique: true,
       trim: true,
       lowercase: true,
       match: [
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         "Please provide a valid email address",
       ],
+    },
+
+    pendingEmail: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      match: [
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        "Please provide a valid email address",
+      ],
+    },
+
+    emailChangeTokenHash: {
+      type: String,
+      select: false,
+    },
+
+    emailChangeTokenExpiresAt: {
+      type: Date,
     },
 
     contactPhone: {
