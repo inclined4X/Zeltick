@@ -149,4 +149,17 @@ const updateOrganizerValidation = [
     .withMessage("Facebook must be a valid URL"),
 ];
 
-module.exports = { validateBecomeOrganizer, updateOrganizerValidation };
+const validateEmail = [
+  body("email")
+    .optional()
+    .trim()
+    .isEmail()
+    .withMessage("Email must be valid email")
+    .normalizeEmail(),
+];
+
+module.exports = {
+  validateBecomeOrganizer,
+  updateOrganizerValidation,
+  validateEmail,
+};
