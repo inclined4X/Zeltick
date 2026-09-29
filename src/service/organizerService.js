@@ -58,7 +58,7 @@ const becomeOrganizerService = async (userId, organizerData) => {
       return createdOrganizer;
     });
 
-    await sendVerificationEmail(pendingEmail, organizerRawToken);
+    await sendVerificationEmail(pendingEmail, organizerRawToken, "organizer");
 
     return organizer;
   } finally {
