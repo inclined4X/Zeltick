@@ -2,6 +2,8 @@ const AppError = require("../errors/appError");
 const userRepository = require("../repositories/userRepository");
 const organizerRepository = require("../repositories/organizerRepository");
 const { default: mongoose } = require("mongoose");
+const tokenGenerate = require("../utils/token");
+const crypto = require("crypto");
 
 const becomeOrganizerService = async (userId, organizerData) => {
   const user = await userRepository.findUserById(userId);
@@ -20,6 +22,13 @@ const becomeOrganizerService = async (userId, organizerData) => {
   if (existingOrganizer) {
     throw new AppError("Organizer already exists", 409);
   }
+
+  const organizerRawToken = tokenGenerate();
+
+  const organizerVerificationToken = crypto
+    .createHash("sha256")
+    .update(organizerRawToken)
+    .digest("hex");
 
   const organizerDetails = {
     ...organizerData,
