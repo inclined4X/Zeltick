@@ -7,6 +7,10 @@ const organizerRepository = require("../repositories/organizerRepository");
 const resendOrganizerVerificationEmail = async (userId) => {
   const organizer = await organizerRepository.findOrganizerByUserId(userId);
 
+  if (!organizer) {
+    throw new AppError("Organizer does not exist");
+  }
+
   if (!organizer.pendingEmail) {
     throw new AppError("Pending email does not exist", 400);
   }
