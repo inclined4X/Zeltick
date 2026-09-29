@@ -4,6 +4,7 @@ const organizerRepository = require("../repositories/organizerRepository");
 const { default: mongoose } = require("mongoose");
 const tokenGenerate = require("../utils/token");
 const crypto = require("crypto");
+const sendVerificationEmail = require("./emailService");
 
 const becomeOrganizerService = async (userId, organizerData) => {
   const user = await userRepository.findUserById(userId);
@@ -32,13 +33,12 @@ const becomeOrganizerService = async (userId, organizerData) => {
 
   const emailChangeTokenExpiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
-  const email = null;
   const pendingEmail = organizerData.email;
 
   const organizerDetails = {
     ...organizerData,
     userId,
-    email,
+    email: null,
     pendingEmail,
     emailChangeTokenHash,
     emailChangeTokenExpiresAt,
@@ -57,6 +57,8 @@ const becomeOrganizerService = async (userId, organizerData) => {
 
       return createdOrganizer;
     });
+
+    await sendVerificationEmail(pendingEmail, organizerRawToken);
 
     return organizer;
   } finally {
