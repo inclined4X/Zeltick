@@ -30,4 +30,6 @@ router.patch(
   organizerController.updateOrganizerController,
 );
 
+router.get("/verify-email", organizerController.verifyOrganizerEmailController);
+
 module.exports = router;

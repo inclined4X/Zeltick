@@ -78,4 +78,5 @@ module.exports = {
   becomeOrganizerController,
   getMyOrganizerProfileController,
   updateOrganizerController,
+  verifyOrganizerEmailController,
 };
