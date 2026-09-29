@@ -20,4 +20,5 @@ module.exports = {
   findOrganizerById,
   findOrganizerByUserId,
   createOrganizer,
+  findOrganizerByHashedToken,
 };
