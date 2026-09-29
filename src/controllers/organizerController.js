@@ -63,14 +63,15 @@ const verifyOrganizerEmailController = async (req, res, next) => {
       return next(new AppError("Invalid or expired verification token", 400));
     }
 
-    const organizer =
-      await verifyOrganizerEmailService.verifyOrganizerEmail(token);
+    await verifyOrganizerEmailService.verifyOrganizerEmail(token);
 
     return res.status(200).json({
       status: "success",
-      data: organizer,
+      message: "organizer email verified successfully",
     });
-  } catch (err) {}
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports = {
