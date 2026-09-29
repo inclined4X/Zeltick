@@ -8,7 +8,7 @@ const resendOrganizerVerificationEmail = async (userId) => {
   const organizer = await organizerRepository.findOrganizerByUserId(userId);
 
   if (!organizer) {
-    throw new AppError("Organizer does not exist");
+    throw new AppError("Organizer does not exist", 404);
   }
 
   if (!organizer.pendingEmail) {
