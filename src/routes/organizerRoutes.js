@@ -32,4 +32,11 @@ router.patch(
 
 router.get("/verify-email", organizerController.verifyOrganizerEmailController);
 
+router.post(
+  "/me/email/resend-verification",
+  authenticate,
+  authourize("organizer"),
+  organizerController.resendOrganizerVerificationEmailController,
+);
+
 module.exports = router;
