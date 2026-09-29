@@ -19,4 +19,12 @@ const verifyEmail = async (tokenFromUrl) => {
   if (organizer.emailChangeTokenExpiresAt <= currentTime) {
     throw new AppError("Token has expired or token is invalid", 400);
   }
+
+  organizer.emailChangeTokenExpiresAt = undefined;
+
+  organizer.emailChangeTokenHash = undefined;
+
+  await organizer.save();
+
+  return organizer;
 };
