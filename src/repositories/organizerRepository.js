@@ -12,7 +12,7 @@ const createOrganizer = async (organizerData, session) => {
   return await Organizer.create([organizerData], { session });
 };
 
-const findOrganizerByHashedToken = async (token) => {
+const findOrganizerByHashedToken = async (emailChangeTokenHash) => {
   return await Organizer.findOne({ emailChangeTokenHash });
 };
 
