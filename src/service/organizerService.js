@@ -131,8 +131,6 @@ const updateOrganizerService = async (userId, updateData) => {
   return organizer;
 };
 
-const EDITABLE_ORGANIZER_EMAIL_FIELD = ["email"];
-
 const updateOrganizerEmail = async (userId, newEmail) => {
   const organizer = organizerRepository.findOrganizerByUserId(userId);
 
@@ -143,8 +141,6 @@ const updateOrganizerEmail = async (userId, newEmail) => {
   if (!organizer.email) {
     throw new AppError("Email does not exist", 400);
   }
-
-  const requestedField = Object.keys(newEmail);
 };
 
 module.exports = {
