@@ -149,7 +149,7 @@ const updateOrganizerValidation = [
     .withMessage("Facebook must be a valid URL"),
 ];
 
-const validateEmail = [
+const updateOrganizerEmailValidation = [
   body("email")
     .optional()
     .trim()
