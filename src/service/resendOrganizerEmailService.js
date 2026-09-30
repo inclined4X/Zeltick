@@ -30,7 +30,11 @@ const resendOrganizerVerificationEmail = async (userId) => {
 
   await organizer.save();
 
-  await sendVerificationEmail(organizer.pendingEmail, tokenForEmail);
+  await sendVerificationEmail(
+    organizer.pendingEmail,
+    tokenForEmail,
+    "organizer",
+  );
 };
 
 module.exports = { resendOrganizerVerificationEmail };

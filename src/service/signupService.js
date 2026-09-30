@@ -36,7 +36,7 @@ const signup = async (userData) => {
     verificationTokenExpiresAt,
   });
 
-  await sendVerificationEmail(email, tokenForEmail);
+  await sendVerificationEmail(email, tokenForEmail, "user");
 
   return {
     id: newUser._id,
