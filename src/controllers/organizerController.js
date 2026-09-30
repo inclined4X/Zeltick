@@ -1,6 +1,7 @@
 const organizerService = require("../service/organizerService");
 const verifyOrganizerEmailService = require("../service/verifyOrganizerEmailService");
 const resendOrganizerEmailService = require("../service/resendOrganizerEmailService");
+const AppError = require("../errors/appError");
 
 const becomeOrganizerController = async (req, res, next) => {
   try {

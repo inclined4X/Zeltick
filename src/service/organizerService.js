@@ -14,7 +14,7 @@ const becomeOrganizerService = async (userId, organizerData) => {
   }
 
   if (!user.emailVerified) {
-    throw new AppError("User email is not verified", 404);
+    throw new AppError("User email is not verified", 403);
   }
 
   const existingOrganizer =
