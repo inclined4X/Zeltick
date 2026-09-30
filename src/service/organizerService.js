@@ -131,7 +131,7 @@ const updateOrganizerService = async (userId, updateData) => {
   return organizer;
 };
 
-const updateOrganizerEmail = async (userId, newEmail) => {
+const updateOrganizerEmailService = async (userId, newEmail) => {
   const organizer = await organizerRepository.findOrganizerByUserId(userId);
 
   if (!organizer) {
@@ -170,5 +170,5 @@ module.exports = {
   becomeOrganizerService,
   getMyOrganizerProfileService,
   updateOrganizerService,
-  updateOrganizerEmail,
+  updateOrganizerEmailService,
 };

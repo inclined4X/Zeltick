@@ -90,10 +90,27 @@ const resendOrganizerVerificationEmailController = async (req, res, next) => {
   }
 };
 
+const updateOrganizerEmailController = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const newEmail = req.body.email;
+
+    await organizerService.updateOrganizerEmailService(userId, newEmail);
+
+    return res.status(200).json({
+      status: "success",
+      message: "Organizer email updated",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   becomeOrganizerController,
   getMyOrganizerProfileController,
   updateOrganizerController,
   verifyOrganizerEmailController,
   resendOrganizerVerificationEmailController,
+  updateOrganizerEmailController,
 };
