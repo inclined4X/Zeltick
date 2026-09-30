@@ -99,7 +99,8 @@ const updateOrganizerEmailController = async (req, res, next) => {
 
     return res.status(200).json({
       status: "success",
-      message: "Organizer email updated",
+      message:
+        "Verification email sent. Verify your new email to complete the change.",
     });
   } catch (err) {
     next(err);
