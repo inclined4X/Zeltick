@@ -161,7 +161,9 @@ const updateOrganizerEmail = async (userId, newEmail) => {
 
   organizer.emailChangeTokenExpiresAt = tokenExpiry;
 
-  organizer.save();
+  await organizer.save();
+
+  await sendVerificationEmail(newEmail, token, "organizer");
 
   return organizer;
 };
