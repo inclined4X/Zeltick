@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body, checkExact } = require("express-validator");
 
 const validateBecomeOrganizer = [
   body("name")
@@ -150,15 +150,23 @@ const updateOrganizerValidation = [
 ];
 
 const updateOrganizerEmailValidation = [
-  body("email")
-    .trim()
-    .isEmail()
-    .withMessage("Email must be a valid email")
-    .normalizeEmail(),
+  checkExact(
+    [
+      body("email")
+        .trim()
+        .isEmail()
+        .withMessage("Email must be a valid email")
+        .normalizeEmail(),
+    ],
+    {
+      message: `only email field is allowed`,
+    },
+  ),
 ];
 
 module.exports = {
   validateBecomeOrganizer,
   updateOrganizerValidation,
   validateEmail,
+  updateOrganizerEmailValidation,
 };

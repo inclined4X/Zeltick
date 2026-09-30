@@ -170,4 +170,5 @@ module.exports = {
   becomeOrganizerService,
   getMyOrganizerProfileService,
   updateOrganizerService,
+  updateOrganizerEmail,
 };
