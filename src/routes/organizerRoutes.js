@@ -39,4 +39,13 @@ router.post(
   organizerController.resendOrganizerVerificationEmailController,
 );
 
+router.patch(
+  "/me/email",
+  authenticate,
+  authourize("organizer"),
+  organizerValidation.updateOrganizerEmailValidation,
+  validate,
+  organizerController.updateOrganizerEmailController,
+);
+
 module.exports = router;
