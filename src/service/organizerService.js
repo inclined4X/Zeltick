@@ -151,9 +151,9 @@ const updateOrganizerEmail = async (userId, newEmail) => {
 
   const token = tokenGenerate();
 
-  organizer.pendingEmail = newEmail;
-
   const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+
+  organizer.pendingEmail = newEmail;
 
   const tokenExpiry = new Date(Date.now() + 15 * 60 * 1000);
 
