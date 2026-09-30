@@ -164,8 +164,6 @@ const updateOrganizerEmail = async (userId, newEmail) => {
   await organizer.save();
 
   await sendVerificationEmail(newEmail, token, "organizer");
-
-  return organizer;
 };
 
 module.exports = {

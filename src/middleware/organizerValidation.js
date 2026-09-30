@@ -151,10 +151,9 @@ const updateOrganizerValidation = [
 
 const updateOrganizerEmailValidation = [
   body("email")
-    .optional()
     .trim()
     .isEmail()
-    .withMessage("Email must be valid email")
+    .withMessage("Email must be a valid email")
     .normalizeEmail(),
 ];
 
