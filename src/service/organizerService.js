@@ -141,6 +141,31 @@ const updateOrganizerEmail = async (userId, newEmail) => {
   if (!organizer.email) {
     throw new AppError("Email does not exist", 400);
   }
+
+  if (newEmail === organizer.email) {
+    throw new AppError(
+      "New email can not be the same as the organizer email",
+      400,
+    );
+  }
+
+  const token = tokenGenerate();
+
+  organizer.pendingEmail = newEmail;
+
+  const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+
+  const tokenExpiry = new Date(date.now() + 15 * 60 * 1000);
+
+  organizer.emailChangeTokenHash = tokenHash;
+
+  organizer.emailChangeTokenExpiresAt = tokenExpiry;
+
+  organizer.email = null;
+
+  organizer.save();
+
+  return organizer;
 };
 
 module.exports = {
