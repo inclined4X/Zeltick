@@ -20,9 +20,12 @@ const validateBecomeOrganizer = [
     .withMessage("Description character length must be between 10 and 2000"),
 
   body("email")
-    .not()
-    .exists()
-    .withMessage("Email must not be provided when becoming an organizer"),
+    .trim()
+    .notEmpty()
+    .withMessage("Organizer email is required")
+    .isEmail()
+    .withMessage("Organizer email must be a valid email")
+    .normalizeEmail(),
 
   body("contactPhone")
     .optional()
@@ -167,6 +170,5 @@ const updateOrganizerEmailValidation = [
 module.exports = {
   validateBecomeOrganizer,
   updateOrganizerValidation,
-  validateEmail,
   updateOrganizerEmailValidation,
 };
