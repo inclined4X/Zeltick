@@ -154,13 +154,7 @@ const updateOrganizerValidation = [
 
 const updateOrganizerEmailValidation = [
   checkExact(
-    [
-      body("email")
-        .trim()
-        .isEmail()
-        .withMessage("Email must be a valid email")
-        .normalizeEmail(),
-    ],
+    [body("email").trim().isEmail().withMessage("Email must be a valid email")],
     {
       message: `only email field is allowed`,
     },
