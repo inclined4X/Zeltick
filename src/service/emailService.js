@@ -28,7 +28,7 @@ const sendVerificationEmail = async (email, token, verificationType) => {
     }
   } catch (err) {
     logger.error({ err }, "Failed to send email verification");
-    throw new AppError("Failed to send verification email", 500);
+    throw err;
   }
 };
 
