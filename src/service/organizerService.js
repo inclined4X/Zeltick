@@ -138,13 +138,9 @@ const updateOrganizerEmailService = async (userId, newEmail) => {
     throw new AppError("Organizer does not exist", 404);
   }
 
-  if (!organizer.email) {
-    throw new AppError("Email does not exist", 400);
-  }
-
-  if (newEmail === organizer.email) {
+  if (organizer.email && newEmail === organizer.email) {
     throw new AppError(
-      "New email can not be the same as the organizer email",
+      "New email cannot be the same as the organizer email",
       400,
     );
   }
