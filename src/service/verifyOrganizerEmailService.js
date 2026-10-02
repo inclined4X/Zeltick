@@ -12,7 +12,7 @@ const verifyOrganizerEmail = async (tokenFromUrl) => {
     await organizerRepository.findOrganizerByHashedToken(tokenFromUrlHashed);
 
   if (!organizer) {
-    throw new AppError("Organizer does not exist", 404);
+    throw new AppError("Invalid or expired verification token", 404);
   }
 
   const currentTime = new Date();
