@@ -36,10 +36,16 @@ const becomeOrganizerService = async (userId, organizerData) => {
   const pendingEmail = organizerData.email;
 
   const organizerDetails = {
-    ...organizerData,
     userId,
+    name: organizerData.name,
+    description: organizerData.description,
+    pendingEmail: organizerData.email,
+    contactPhone: organizerData.contactPhone,
+    logo: organizerData.logo,
+    website: organizerData.website,
+    socialLinks: organizerData.socialLinks,
+
     email: null,
-    pendingEmail,
     emailChangeTokenHash,
     emailChangeTokenExpiresAt,
   };
