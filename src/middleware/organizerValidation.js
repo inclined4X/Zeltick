@@ -30,8 +30,7 @@ const validateBecomeOrganizer = [
         .notEmpty()
         .withMessage("Organizer email is required")
         .isEmail()
-        .withMessage("Organizer email must be a valid email")
-        .normalizeEmail(),
+        .withMessage("Organizer email must be a valid email"),
 
       body("contactPhone")
         .optional()
