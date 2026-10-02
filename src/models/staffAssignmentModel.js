@@ -1,39 +1,28 @@
-const mongoose = require("mongoose");
+const { default: mongoose, Schema } = require("mongoose");
 
-const staffAssignmentSchema = new mongoose.Schema(
+const staffAssignmentSchema = new Schema(
   {
     organizerId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.ObjectId,
       ref: "Organizer",
       required: true,
     },
 
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.ObjectId,
       ref: "User",
-      required: true,
-    },
-
-    addedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-
-    scope: {
-      type: String,
-      enum: ["organizer", "event"],
       required: true,
     },
 
     eventId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.ObjectId,
       ref: "Event",
+      default: null,
     },
 
     role: {
       type: String,
-      enum: ["check_in", "ticket_seller", "manager"],
+      enum: ["manager", "ticket_seller", "check_in_staff"],
       required: true,
     },
 
@@ -44,8 +33,15 @@ const staffAssignmentSchema = new mongoose.Schema(
       required: true,
     },
 
+    addedBy: {
+      type: Schema.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     revokedAt: {
       type: Date,
+      default: null,
     },
   },
   {
