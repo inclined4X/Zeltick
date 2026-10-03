@@ -30,3 +30,11 @@ const findAllForOrganizer = async (organizerId) => {
     status: "active",
   }).populate("userId", "firstName lastName email");
 };
+
+const findEffectiveStaffForEvent = async (eventId, organizerId) => {
+  return await StaffAssignment.find({
+    organizerId,
+    status: "active",
+    $or: [{ eventId }, { eventId: null }],
+  }).populate("userId", "firstName lastName email");
+};
