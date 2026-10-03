@@ -23,3 +23,10 @@ const findActiveAssignment = async (userId, eventId, organizerId) => {
     organizerId,
   });
 };
+
+const findAllForOrganizer = async (organizerId) => {
+  return await StaffAssignment.find({
+    organizerId,
+    status: "active",
+  }).populate("userId", "firstName lastName email");
+};
