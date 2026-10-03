@@ -15,7 +15,7 @@ const findAssignmentAuthorization = async (userId, eventId, organizerId) => {
   });
 };
 
-const findActiveAssignment = async (userId, eventId, organizerId) => {
+const findExactActiveAssignment = async (userId, eventId, organizerId) => {
   return await StaffAssignment.findOne({
     userId,
     status: "active",
@@ -41,4 +41,13 @@ const findEffectiveStaffForEvent = async (eventId, organizerId) => {
 
 const findById = async (assignmentId) => {
   return await StaffAssignment.findById(assignmentId);
+};
+
+module.exports = {
+  createStaffAssignment,
+  findAssignmentAuthorization,
+  findExactActiveAssignment,
+  findAllForOrganizer,
+  findEffectiveStaffForEvent,
+  findById,
 };
