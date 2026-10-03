@@ -19,13 +19,13 @@ const createStaffAssignmentService = async (
   if (!mongoose.isValidObjectId(requesterId)) {
     throw new AppError("ID is invalid", 400);
   }
-  const user = await userRepository.findUserById(targetId);
+  const targetUser = await userRepository.findUserById(targetId);
 
-  if (!user) {
+  if (!targetUser) {
     throw new AppError("User does not exist", 404);
   }
 
-  if (user.status !== "active") {
+  if (targetUser.status !== "active") {
     throw new AppError("User is not active");
   }
 
@@ -36,7 +36,17 @@ const createStaffAssignmentService = async (
     throw new AppError("Organizer does not exist", 404);
   }
 
+  if (eventId !== null) {
+    if (!mongoose.isValidObjectId(eventId)) {
+      throw new AppError("Event ID is invalid", 400);
+    }
+  }
+
   const event = await eventRepository.findEventById(eventId);
+
+  if (!event) {
+    throw new AppError("Event does not exist", 404);
+  }
 
   if (!organizer._id.equals(event.organizerId)) {
     throw new AppError("You do not have permission to assign a staff");
