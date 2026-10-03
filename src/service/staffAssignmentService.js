@@ -10,6 +10,9 @@ const createStaffAssignmentService = async (
   role,
   eventId,
 ) => {
+  if (!mongoose.isValidObjectId(userId)) {
+    throw new AppError("ID is invalid", 400);
+  }
   const user = await userRepository.findUserById(userId);
 
   if (!user) {
@@ -18,6 +21,10 @@ const createStaffAssignmentService = async (
 
   if (user.status !== active) {
     throw new AppError("User is not active");
+  }
+
+  if (!mongoose.isValidObjectId(organizerId)) {
+    throw new AppError("ID is invalid", 400);
   }
 
   const organizer =
