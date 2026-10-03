@@ -38,3 +38,7 @@ const findEffectiveStaffForEvent = async (eventId, organizerId) => {
     $or: [{ eventId }, { eventId: null }],
   }).populate("userId", "firstName lastName email");
 };
+
+const findById = async (assignmentId) => {
+  return await StaffAssignment.findById(assignmentId);
+};
