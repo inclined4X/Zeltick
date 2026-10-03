@@ -3,12 +3,14 @@ const userRepository = require("../repositories/userRepository");
 const organizerRepository = require("../repositories/organizerRepository");
 const eventRepository = require("../repositories/eventRepository");
 const { default: mongoose } = require("mongoose");
+const staffAssignmentRepository = require("../repositories/staffAssignmentRepository");
 
 const createStaffAssignmentService = async (
   organizerId,
   userId,
   role,
   eventId,
+  staffData,
 ) => {
   if (!mongoose.isValidObjectId(userId)) {
     throw new AppError("ID is invalid", 400);
@@ -47,4 +49,22 @@ const createStaffAssignmentService = async (
   if (!organizer._id.equals(event.organizerId)) {
     throw new AppError("You do not have permission to assign a staff");
   }
+
+  const staffAssignmentAuthourity =
+    await staffAssignmentRepository.findAssignmentAuthorization(
+      userId,
+      eventId,
+      organizerId,
+    );
+
+  if (!staffAssignment) {
+    throw new AppError("You can not assign staff", 400);
+  }
+
+  const staffAssignment =
+    await staffAssignmentRepository.createStaffAssignment(staffData);
+
+  await staffAssignment.save();
+
+  return staffAssignment;
 };
