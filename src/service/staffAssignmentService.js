@@ -3,6 +3,8 @@ const userRepository = require("../repositories/userRepository");
 
 const organizerRepository = require("../repositories/organizerRepository");
 
+const eventRepository = require("../repositories/eventRepository");
+
 const createStaffAssignmentService = async (
   organizerId,
   userId,
@@ -21,4 +23,14 @@ const createStaffAssignmentService = async (
 
   const organizer =
     await organizerRepository.findOrganizerByUserId(organizerId);
+
+  if (!organizer) {
+    throw new AppError("Organizer does not exist", 404);
+  }
+
+  const event = await eventRepository.findEventById(eventId);
+
+  if (!event) {
+    throw new AppError("Event does not exist", 400);
+  }
 };
