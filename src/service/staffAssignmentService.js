@@ -49,22 +49,31 @@ const createStaffAssignmentService = async (
   }
 
   if (!organizer._id.equals(event.organizerId)) {
-    throw new AppError("You do not have permission to assign a staff");
+    throw new AppError("Event does not belong to this organizer", 403);
   }
 
-  const staffAssignmentAuthourity =
+  const existingAssignment =
     await staffAssignmentRepository.findExactActiveAssignment(
-      userId,
+      targetId,
       eventId,
-      organizerId,
+      organizer._id,
     );
 
-  if (!staffAssignment) {
-    throw new AppError("You can not assign staff", 400);
+  if (existingAssignment) {
+    throw new AppError("User already has this active assignment", 409);
   }
 
-  const staffAssignment =
-    await staffAssignmentRepository.createStaffAssignment(staffData);
+  const staffData = {
+    organizerId: organizer._id,
+    userId: targetId,
+    eventId,
+    role,
+    addedBy: requesterId,
+    status: "active",
+    revokedAt: null,
+  };
+
+  await staffAssignmentRepository.createStaffAssignment(staffData);
 
   return staffAssignment;
 };
