@@ -14,3 +14,12 @@ const findAssignmentAuthorization = async (userId, eventId, organizerId) => {
     ],
   });
 };
+
+const findActiveAssignment = async (userId, eventId, organizerId) => {
+  return await StaffAssignment.findOne({
+    userId,
+    status: "active",
+    eventId,
+    organizerId,
+  });
+};
