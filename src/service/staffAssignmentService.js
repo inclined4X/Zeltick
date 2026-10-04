@@ -6,6 +6,11 @@ const organizerRepository = require("../repositories/organizerRepository");
 const eventRepository = require("../repositories/eventRepository");
 const staffAssignmentRepository = require("../repositories/staffAssignmentRepository");
 
+const ROLE_GRANT_PERMISSIONS = {
+  organizer: ["manager", "ticket_seller", "check_in_staff"],
+  manager: ["ticket_seller", "check_in_staff"],
+};
+
 const createStaffAssignmentService = async (
   requesterId,
   targetId,
@@ -20,22 +25,7 @@ const createStaffAssignmentService = async (
     throw new AppError("Target user ID is invalid", 400);
   }
 
-  const organizer =
-    await organizerRepository.findOrganizerByUserId(requesterId);
-
-  if (!organizer) {
-    throw new AppError("Organizer does not exist", 404);
-  }
-
-  const targetUser = await userRepository.findUserById(targetId);
-
-  if (!targetUser) {
-    throw new AppError("User does not exist", 404);
-  }
-
-  if (targetUser.status !== "active") {
-    throw new AppError("User is not active", 400);
-  }
+  let organizer;
 
   if (eventId !== null) {
     if (!mongoose.isValidObjectId(eventId)) {
@@ -48,16 +38,66 @@ const createStaffAssignmentService = async (
       throw new AppError("Event does not exist", 404);
     }
 
-    if (!organizer._id.equals(event.organizerId)) {
-      throw new AppError("Event does not belong to this organizer", 403);
+    organizer = await organizerRepository.findOrganizerById(event.organizerId);
+
+    if (!organizer) {
+      throw new AppError("Organizer does not exist", 404);
     }
+  } else {
+    organizer = await organizerRepository.findOrganizerByUserId(requesterId);
+
+    if (!organizer) {
+      throw new AppError("Organizer does not exist", 404);
+    }
+  }
+
+  const isOwner = organizer.userId.equals(requesterId);
+
+  let requesterRole;
+
+  if (isOwner) {
+    requesterRole = "organizer";
+  } else {
+    if (eventId === null) {
+      throw new AppError(
+        "Only the organizer owner can create organizer-wide assignments",
+        403,
+      );
+    }
+
+    const manager = await staffAssignmentRepository.findActiveManagerAssignment(
+      requesterId,
+      organizer._id,
+    );
+
+    if (!manager) {
+      throw new AppError("You do not have permission to assign staff", 403);
+    }
+
+    requesterRole = "manager";
+  }
+
+  const allowedRoles = ROLE_GRANT_PERMISSIONS[requesterRole];
+
+  if (!allowedRoles.includes(role)) {
+    throw new AppError("You do not have permission to assign this role", 403);
+  }
+
+  const targetUser = await userRepository.findUserById(targetId);
+
+  if (!targetUser) {
+    throw new AppError("User does not exist", 404);
+  }
+
+  if (targetUser.status !== "active") {
+    throw new AppError("User is not active", 400);
   }
 
   const existingAssignment =
     await staffAssignmentRepository.findExactActiveAssignment(
-      organizer._id,
       targetId,
       eventId,
+      organizer._id,
     );
 
   if (existingAssignment) {

@@ -60,4 +60,5 @@ module.exports = {
   findAllForOrganizer,
   findEffectiveStaffForEvent,
   findById,
+  findActiveManagerAssignment,
 };
