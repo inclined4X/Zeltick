@@ -4,6 +4,7 @@ const healthRoutes = require("../routes/healthRoutes");
 const eventRoutes = require("../routes/eventRoutes");
 const authRoutes = require("../routes/authRoutes");
 const organizerRoutes = require("../routes/organizerRoutes");
+const staffAssignmentRoutes = require("../routes/staffAssignmentRoutes");
 const session = require("express-session");
 const { sessionSecret, mongodbUri, nodeEnvironment } = require("../config/env");
 const { default: MongoStore } = require("connect-mongo");
@@ -46,6 +47,7 @@ app.use("/", healthRoutes);
 app.use("/events", eventRoutes);
 app.use("/auth", authRoutes);
 app.use("/organizers", organizerRoutes);
+app.use("/", staffAssignmentRoutes);
 
 app.use((req, res, next) => {
   next(new AppError("Route not found", 404));

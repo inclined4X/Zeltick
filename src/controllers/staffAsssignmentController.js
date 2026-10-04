@@ -1,4 +1,4 @@
-const staffAssignmentService = require("../services/staffAssignmentService");
+const staffAssignmentService = require("../service/staffAssignmentService");
 
 const createStaffAssignmentController = async (req, res, next) => {
   try {
