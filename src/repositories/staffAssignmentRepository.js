@@ -24,6 +24,16 @@ const findExactActiveAssignment = async (userId, eventId, organizerId) => {
   });
 };
 
+const findActiveManagerAssignment = async (userId, organizerId) => {
+  return await StaffAssignment.findOne({
+    userId,
+    organizerId,
+    role: "manager",
+    status: "active",
+    eventId: null,
+  });
+};
+
 const findAllForOrganizer = async (organizerId) => {
   return await StaffAssignment.find({
     organizerId,
