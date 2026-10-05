@@ -9,4 +9,10 @@ router.post(
   staffAssignmentController.createStaffAssignmentController,
 );
 
+router.get(
+  "/organizers/:organizerId/staff",
+  authenticate,
+  staffAssignmentController.listStaffOrganizerController,
+);
+
 module.exports = router;

@@ -43,4 +43,5 @@ const listStaffOrganizerController = async (req, res, next) => {
 
 module.exports = {
   createStaffAssignmentController,
+  listStaffOrganizerController,
 };
