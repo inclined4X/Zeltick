@@ -135,9 +135,12 @@ const listStaffOrganizerService = async (organizerId, requesterId) => {
     );
 
     if (!manager) {
-      throw new AppError("Manager does not exist", 403);
+      throw new AppError(
+        "You do not have permission to view the this list",
+        403,
+      );
     }
-    return await staffAssignmentRepository.findAllForOrganizer(requesterId);
+    return await staffAssignmentRepository.findAllForOrganizer(organizerId);
   }
 };
 
