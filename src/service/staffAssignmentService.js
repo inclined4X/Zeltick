@@ -180,6 +180,29 @@ const listStaffSpecificEventService = async (
   if (!organizer) {
     throw new AppError("Organizer does not exist", 404);
   }
+
+  const isOwner = organizer.userId.equals(requesterId);
+
+  if (isOwner) {
+    return await staffAssignmentRepository.findEffectiveStaffForEvent(
+      eventId,
+      organizer._id,
+    );
+  } else {
+    const manager = staffAssignmentRepository.findActiveManagerAssignment(
+      requesterId,
+      organizer._id,
+    );
+
+    if (!manager) {
+      throw new AppError("You do not have permission to view this list", 403);
+    }
+
+    return await staffAssignmentRepository.findEffectiveStaffForEvent(
+      eventId,
+      organizer._id,
+    );
+  }
 };
 
 module.exports = {
