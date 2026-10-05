@@ -154,4 +154,5 @@ const listStaffOrganizerService = async (organizerId, requesterId) => {
 
 module.exports = {
   createStaffAssignmentService,
+  listStaffOrganizerService,
 };
