@@ -41,6 +41,25 @@ const listStaffOrganizerController = async (req, res, next) => {
   }
 };
 
+const listStaffSpecificEventController = async (req, res, next) => {
+  try {
+    const eventId = req.params.eventId;
+    const requesterId = req.user._id;
+
+    const staff = await staffAssignmentService.listStaffSpecificEventService(
+      requesterId,
+      eventId,
+    );
+
+    return res.status(200).json({
+      status: "success",
+      data: staff,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createStaffAssignmentController,
   listStaffOrganizerController,

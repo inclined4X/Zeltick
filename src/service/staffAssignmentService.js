@@ -197,4 +197,5 @@ const listStaffSpecificEventService = async (requesterId, eventId) => {
 module.exports = {
   createStaffAssignmentService,
   listStaffOrganizerService,
+  listStaffSpecificEventService,
 };
