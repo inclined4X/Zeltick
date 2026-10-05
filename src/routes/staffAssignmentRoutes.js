@@ -15,4 +15,10 @@ router.get(
   staffAssignmentController.listStaffOrganizerController,
 );
 
+router.get(
+  "/events/:eventId/staff",
+  authenticate,
+  staffAssignmentController.listStaffSpecificEventController,
+);
+
 module.exports = router;

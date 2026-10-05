@@ -63,4 +63,5 @@ const listStaffSpecificEventController = async (req, res, next) => {
 module.exports = {
   createStaffAssignmentController,
   listStaffOrganizerController,
+  listStaffSpecificEventController,
 };
