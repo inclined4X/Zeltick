@@ -203,7 +203,22 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
     throw new AppError("Assignment ID is invalid", 400);
   }
 
-  const assignment = await staffAssignmentRepository.findById;
+  const assignment = await staffAssignmentRepository.findById(assignmentId);
+
+  const organizerId = assignment.organizerId;
+
+  const isOwned = organizerId.equals(equals);
+
+  if (!isOwned) {
+    throw new AppError(
+      "You do not have the permission to perform this action",
+      403,
+    );
+  }
+
+  assignment.status = revoked;
+
+  assignment.save();
 };
 
 module.exports = {
