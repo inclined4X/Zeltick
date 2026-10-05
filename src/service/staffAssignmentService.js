@@ -118,6 +118,14 @@ const createStaffAssignmentService = async (
 };
 
 const listStaffOrganizerService = async (organizerId, requesterId) => {
+  if (!mongoose.isValidObjectId(requesterId)) {
+    throw new AppError("Requester ID is invalid", 400);
+  }
+
+  if (!mongoose.isValidObjectId(organizerId)) {
+    throw new AppError("Requester ID is invalid", 400);
+  }
+
   const organizer = await organizerRepository.findOrganizerById(organizerId);
 
   if (!organizer) {
