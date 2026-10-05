@@ -83,4 +83,5 @@ module.exports = {
   createStaffAssignmentController,
   listStaffOrganizerController,
   listStaffSpecificEventController,
+  revokeAssignmentController,
 };
