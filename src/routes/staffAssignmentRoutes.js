@@ -24,7 +24,6 @@ router.get(
 router.patch(
   "/staff-assignment/:assignmentId/revoke",
   authenticate,
-  authourize("organizer"),
   staffAssignmentController.revokeAssignmentController,
 );
 
