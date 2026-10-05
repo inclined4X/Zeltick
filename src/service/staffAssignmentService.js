@@ -123,7 +123,7 @@ const listStaffOrganizerService = async (organizerId, requesterId) => {
   }
 
   if (!mongoose.isValidObjectId(organizerId)) {
-    throw new AppError("Requester ID is invalid", 400);
+    throw new AppError("Organizer ID is invalid", 400);
   }
 
   const organizer = await organizerRepository.findOrganizerById(organizerId);
