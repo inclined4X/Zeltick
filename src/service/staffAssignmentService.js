@@ -152,6 +152,36 @@ const listStaffOrganizerService = async (organizerId, requesterId) => {
   }
 };
 
+const listStaffSpecificEventService = async (
+  requesterId,
+  eventId,
+  organizerId,
+) => {
+  if (!mongoose.isValidObjectId(requesterId)) {
+    throw new AppError("Requester ID is invalid", 400);
+  }
+
+  if (!mongoose.isValidObjectId(eventId)) {
+    throw new AppError("Requester ID is invalid", 400);
+  }
+
+  if (!mongoose.isValidObjectId(organizerId)) {
+    throw new AppError("Requester ID is invalid", 400);
+  }
+
+  const event = await eventRepository.findEventById(eventId);
+
+  if (!event) {
+    throw new AppError("Event does not exist", 404);
+  }
+
+  const organizer = organizerRepository.findOrganizerById(event.organizerId);
+
+  if (!organizer) {
+    throw new AppError("Organizer does not exist", 404);
+  }
+};
+
 module.exports = {
   createStaffAssignmentService,
   listStaffOrganizerService,
