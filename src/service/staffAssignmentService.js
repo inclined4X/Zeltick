@@ -226,9 +226,15 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
     );
   }
 
+  if (assigment.status !== "active") {
+    throw new AppError("Assignment has already been revoked", 404);
+  }
+
   assignment.status = "revoked";
 
-  assignment.save();
+  assignment.revokedAt = new Date();
+
+  await assignment.save();
 };
 
 module.exports = {
