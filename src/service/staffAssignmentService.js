@@ -167,7 +167,9 @@ const listStaffSpecificEventService = async (requesterId, eventId) => {
     throw new AppError("Event does not exist", 404);
   }
 
-  const organizer = organizerRepository.findOrganizerById(event.organizerId);
+  const organizer = await organizerRepository.findOrganizerById(
+    event.organizerId,
+  );
 
   if (!organizer) {
     throw new AppError("Organizer does not exist", 404);
