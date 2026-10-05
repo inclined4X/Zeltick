@@ -211,7 +211,7 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
 
   const organizerId = assignment.organizerId;
 
-  const isOwned = organizerId.equals(equals);
+  const isOwned = organizerId.equals(requesterId);
 
   if (!isOwned) {
     throw new AppError(
