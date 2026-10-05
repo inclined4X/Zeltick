@@ -117,6 +117,21 @@ const createStaffAssignmentService = async (
   return await staffAssignmentRepository.createStaffAssignment(staffData);
 };
 
+const listStaffOrganizerService = async (userId) => {
+  const organizer = await organizerRepository.findOrganizerByUserId(userId);
+
+  if (!organizer) {
+    throw new AppError("Organizer does not exist", 404);
+  }
+
+  const organizerId = organizer._id;
+
+  const allStaff =
+    await staffAssignmentRepository.findAllForOrganizer(organizerId);
+
+  return allStaff;
+};
+
 module.exports = {
   createStaffAssignmentService,
 };
