@@ -177,12 +177,7 @@ const listStaffSpecificEventService = async (requesterId, eventId) => {
 
   const isOwner = organizer.userId.equals(requesterId);
 
-  if (isOwner) {
-    return await staffAssignmentRepository.findEffectiveStaffForEvent(
-      eventId,
-      organizer._id,
-    );
-  } else {
+  if (!isOwner) {
     const manager = await staffAssignmentRepository.findActiveManagerAssignment(
       requesterId,
       organizer._id,
@@ -191,12 +186,12 @@ const listStaffSpecificEventService = async (requesterId, eventId) => {
     if (!manager) {
       throw new AppError("You do not have permission to view this list", 403);
     }
-
-    return await staffAssignmentRepository.findEffectiveStaffForEvent(
-      eventId,
-      organizer._id,
-    );
   }
+
+  return await staffAssignmentRepository.findEffectiveStaffForEvent(
+    eventId,
+    organizer._id,
+  );
 };
 
 module.exports = {
