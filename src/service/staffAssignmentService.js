@@ -217,7 +217,7 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
     throw new AppError("Organizer does not exist", 404);
   }
 
-  const isOwned = organizerId.equals(requesterId);
+  const isOwned = organizerId.userId.equals(requesterId);
 
   if (!isOwned) {
     throw new AppError(
