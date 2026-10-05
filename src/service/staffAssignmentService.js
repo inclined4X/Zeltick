@@ -117,19 +117,28 @@ const createStaffAssignmentService = async (
   return await staffAssignmentRepository.createStaffAssignment(staffData);
 };
 
-const listStaffOrganizerService = async (organizerId) => {
+const listStaffOrganizerService = async (organizerId, requesterId) => {
   const organizer = await organizerRepository.findOrganizerById(organizerId);
 
   if (!organizer) {
     throw new AppError("Organizer does not exist", 404);
   }
 
-  const isOwner = organizer._id.equals(organizerId);
+  const isOwner = organizer.userId.equals(requesterId);
 
-  const allStaff =
-    await staffAssignmentRepository.findAllForOrganizer(organizerId);
+  if (isOwner) {
+    return await staffAssignmentRepository.findAllForOrganizer(organizerId);
+  } else {
+    const manager = await staffAssignmentRepository.findActiveManagerAssignment(
+      requesterId,
+      organizer._id,
+    );
 
-  return allStaff;
+    if (!manager) {
+      throw new AppError("Manager does not exist", 403);
+    }
+    return await staffAssignmentRepository.findAllForOrganizer(requesterId);
+  }
 };
 
 module.exports = {
