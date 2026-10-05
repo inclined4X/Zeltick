@@ -152,21 +152,13 @@ const listStaffOrganizerService = async (organizerId, requesterId) => {
   }
 };
 
-const listStaffSpecificEventService = async (
-  requesterId,
-  eventId,
-  organizerId,
-) => {
+const listStaffSpecificEventService = async (requesterId, eventId) => {
   if (!mongoose.isValidObjectId(requesterId)) {
     throw new AppError("Requester ID is invalid", 400);
   }
 
   if (!mongoose.isValidObjectId(eventId)) {
-    throw new AppError("Requester ID is invalid", 400);
-  }
-
-  if (!mongoose.isValidObjectId(organizerId)) {
-    throw new AppError("Requester ID is invalid", 400);
+    throw new AppError("Event ID is invalid", 400);
   }
 
   const event = await eventRepository.findEventById(eventId);
