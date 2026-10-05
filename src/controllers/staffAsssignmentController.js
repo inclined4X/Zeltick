@@ -24,7 +24,7 @@ const createStaffAssignmentController = async (req, res, next) => {
 
 const listStaffOrganizerController = async (req, res, next) => {
   try {
-    const organizerId = req.params.id;
+    const organizerId = req.params.organizerId;
     const requesterId = req.user._id;
 
     const staff = await staffAssignmentService.listStaffOrganizerService(
