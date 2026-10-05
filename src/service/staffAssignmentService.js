@@ -235,10 +235,13 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
   assignment.revokedAt = new Date();
 
   await assignment.save();
+
+  return assignment;
 };
 
 module.exports = {
   createStaffAssignmentService,
   listStaffOrganizerService,
   listStaffSpecificEventService,
+  revokeAssignmentService,
 };

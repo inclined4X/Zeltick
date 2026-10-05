@@ -60,6 +60,25 @@ const listStaffSpecificEventController = async (req, res, next) => {
   }
 };
 
+const revokeAssignmentController = async (req, res, next) => {
+  try {
+    const requesterId = req.user._id;
+    const assignmentId = req.params.assignmentId;
+
+    const assignment = await staffAssignmentService.revokeAssignmentService(
+      requesterId,
+      assignmentId,
+    );
+
+    return res.status(200).json({
+      status: "success",
+      data: assignment,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createStaffAssignmentController,
   listStaffOrganizerController,
