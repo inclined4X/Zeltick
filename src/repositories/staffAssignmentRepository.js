@@ -49,7 +49,7 @@ const findEffectiveStaffForEvent = async (eventId, organizerId) => {
   }).populate("userId", "firstName lastName email");
 };
 
-const findById = async (assignmentId) => {
+const findAssignmentById = async (assignmentId) => {
   return await StaffAssignment.findById(assignmentId);
 };
 
@@ -59,6 +59,6 @@ module.exports = {
   findExactActiveAssignment,
   findAllForOrganizer,
   findEffectiveStaffForEvent,
-  findById,
+  findAssignmentById,
   findActiveManagerAssignment,
 };
