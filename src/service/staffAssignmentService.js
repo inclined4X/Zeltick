@@ -205,6 +205,10 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
 
   const assignment = await staffAssignmentRepository.findById(assignmentId);
 
+  if (!assignment) {
+    throw new AppError("Assignment does not exist", 404);
+  }
+
   const organizerId = assignment.organizerId;
 
   const isOwned = organizerId.equals(equals);
