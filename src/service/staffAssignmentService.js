@@ -189,7 +189,7 @@ const listStaffSpecificEventService = async (
       organizer._id,
     );
   } else {
-    const manager = staffAssignmentRepository.findActiveManagerAssignment(
+    const manager = await staffAssignmentRepository.findActiveManagerAssignment(
       requesterId,
       organizer._id,
     );
