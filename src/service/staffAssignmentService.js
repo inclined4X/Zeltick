@@ -226,7 +226,7 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
     );
   }
 
-  assignment.status = revoked;
+  assignment.status = "revoked";
 
   assignment.save();
 };
