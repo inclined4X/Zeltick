@@ -211,13 +211,13 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
 
   const organizerId = assignment.organizerId;
 
-  const organizer = organizerRepository.findOrganizerById(organizerId);
+  const organizer = await organizerRepository.findOrganizerById(organizerId);
 
   if (!organizer) {
     throw new AppError("Organizer does not exist", 404);
   }
 
-  const isOwned = organizerId.userId.equals(requesterId);
+  const isOwned = organizer.userId.equals(requesterId);
 
   if (!isOwned) {
     throw new AppError(
@@ -226,8 +226,8 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
     );
   }
 
-  if (assigment.status !== "active") {
-    throw new AppError("Assignment has already been revoked", 404);
+  if (assignment.status !== "active") {
+    throw new AppError("Assignment has already been revoked", 409);
   }
 
   assignment.status = "revoked";
