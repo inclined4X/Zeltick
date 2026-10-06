@@ -19,3 +19,8 @@ const canRolePerform = (role, capability) => {
 
   return allowedCapabilities.includes(capability);
 };
+
+module.exports = {
+  ROLE_CAPABILITIES,
+  canRolePerform,
+};
