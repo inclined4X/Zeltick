@@ -5,6 +5,7 @@ const userRepository = require("../repositories/userRepository");
 const organizerRepository = require("../repositories/organizerRepository");
 const eventRepository = require("../repositories/eventRepository");
 const staffAssignmentRepository = require("../repositories/staffAssignmentRepository");
+const staffCapability = require("../policies/staffCapability");
 
 const ROLE_GRANT_PERMISSIONS = {
   organizer: ["manager", "ticket_seller", "check_in_staff"],
@@ -237,6 +238,26 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
   await assignment.save();
 
   return assignment;
+};
+
+const authorizeStaffOperation = async (requesterId, eventId, capability) => {
+  if (!mongoose.isValidObjectId(requesterId)) {
+    throw new AppError("Requester ID is invalid", 400);
+  }
+
+  if (!mongoose.isValidObjectId(eventId)) {
+    throw new AppError("Assignment ID is invalid", 400);
+  }
+
+  const event = await eventRepository.findEventById(eventId);
+
+  if (!event) {
+    throw new AppError("Event does not exist", 400);
+  }
+
+  const organizer = await organizerRepository.findOrganizerById(
+    event.organizerId,
+  );
 };
 
 module.exports = {
