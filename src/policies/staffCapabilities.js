@@ -10,4 +10,12 @@ const ROLE_CAPABILITIES = {
   check_in_staff: ["check_in"],
 };
 
-const canPerformRole = () => {};
+const canRolePerform = (role, capability) => {
+  const allowedCapabilities = ROLE_CAPABILITIES[role];
+
+  if (!allowedCapabilities) {
+    return false;
+  }
+
+  return allowedCapabilities.includes(capability);
+};
