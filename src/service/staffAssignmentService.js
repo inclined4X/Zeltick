@@ -298,7 +298,7 @@ const authorizeStaffOperationService = async (
     throw new AppError("Your role does not permit this operation", 403);
   }
 
-  return true;
+  return assignment;
 };
 
 module.exports = {
