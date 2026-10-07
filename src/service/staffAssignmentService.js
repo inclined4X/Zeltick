@@ -274,6 +274,23 @@ const authorizeStaffOperation = async (requesterId, eventId, capability) => {
   if (user.status !== "active") {
     throw new AppError("User is not active", 403);
   }
+
+  const assignment =
+    await staffAssignmentRepository.findAssignmentAuthorization(
+      requesterId,
+      eventId,
+      event.organizerId,
+    );
+
+  if (!assignment) {
+    throw new AppError("You are not authorized for this event", 403);
+  }
+
+  if (!canRolePerform(assignment.role, capability)) {
+    throw new AppError("Your role does not permit this operation", 403);
+  }
+
+  return true;
 };
 
 module.exports = {
