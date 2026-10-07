@@ -240,7 +240,11 @@ const revokeAssignmentService = async (requesterId, assignmentId) => {
   return assignment;
 };
 
-const authorizeStaffOperation = async (requesterId, eventId, capability) => {
+const authorizeStaffOperationService = async (
+  requesterId,
+  eventId,
+  capability,
+) => {
   if (!mongoose.isValidObjectId(requesterId)) {
     throw new AppError("Requester ID is invalid", 400);
   }
@@ -302,5 +306,5 @@ module.exports = {
   listStaffOrganizerService,
   listStaffSpecificEventService,
   revokeAssignmentService,
-  authorizeStaffOperation,
+  authorizeStaffOperationService,
 };
