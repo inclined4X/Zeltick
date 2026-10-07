@@ -252,12 +252,34 @@ const authorizeStaffOperation = async (requesterId, eventId, capability) => {
   const event = await eventRepository.findEventById(eventId);
 
   if (!event) {
-    throw new AppError("Event does not exist", 400);
+    throw new AppError("Event does not exist", 404);
   }
 
   const organizer = await organizerRepository.findOrganizerById(
     event.organizerId,
   );
+
+  if (!organizer) {
+    throw new AppError("Organizer does not exist", 404);
+  }
+
+  const isOwner = organizer.userId.equals(requesterId);
+
+  if (!isOwner) {
+    const assignment =
+      await staffAssignmentRepository.findAssignmentAuthorization(
+        requesterId,
+        eventId,
+        event.organizerId,
+      );
+
+    if (!assignment) {
+      ("You are not authorized for this event", 403);
+    }
+  }
+  if (!canRolePerform(assignment.role, capability)) {
+    throw new AppError("Your role does not permit this operation", 403);
+  }
 };
 
 module.exports = {
