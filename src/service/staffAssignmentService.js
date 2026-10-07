@@ -246,7 +246,7 @@ const authorizeStaffOperation = async (requesterId, eventId, capability) => {
   }
 
   if (!mongoose.isValidObjectId(eventId)) {
-    throw new AppError("Assignment ID is invalid", 400);
+    throw new AppError("Event ID is invalid", 400);
   }
 
   const event = await eventRepository.findEventById(eventId);
@@ -265,20 +265,14 @@ const authorizeStaffOperation = async (requesterId, eventId, capability) => {
 
   const isOwner = organizer.userId.equals(requesterId);
 
-  if (!isOwner) {
-    const assignment =
-      await staffAssignmentRepository.findAssignmentAuthorization(
-        requesterId,
-        eventId,
-        event.organizerId,
-      );
+  const user = await userRepository.findUserById(requesterId);
 
-    if (!assignment) {
-      ("You are not authorized for this event", 403);
-    }
+  if (!user) {
+    throw new AppError("User does not exist", 404);
   }
-  if (!canRolePerform(assignment.role, capability)) {
-    throw new AppError("Your role does not permit this operation", 403);
+
+  if (user.status !== "active") {
+    throw new AppError("User is not active", 403);
   }
 };
 
