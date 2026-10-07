@@ -253,6 +253,16 @@ const authorizeStaffOperationService = async (
     throw new AppError("Event ID is invalid", 400);
   }
 
+  const user = await userRepository.findUserById(requesterId);
+
+  if (!user) {
+    throw new AppError("User does not exist", 404);
+  }
+
+  if (user.status !== "active") {
+    throw new AppError("User is not active", 403);
+  }
+
   const event = await eventRepository.findEventById(eventId);
 
   if (!event) {
@@ -271,16 +281,6 @@ const authorizeStaffOperationService = async (
 
   if (isOwner) {
     return true;
-  }
-
-  const user = await userRepository.findUserById(requesterId);
-
-  if (!user) {
-    throw new AppError("User does not exist", 404);
-  }
-
-  if (user.status !== "active") {
-    throw new AppError("User is not active", 403);
   }
 
   const assignment =
