@@ -265,6 +265,10 @@ const authorizeStaffOperation = async (requesterId, eventId, capability) => {
 
   const isOwner = organizer.userId.equals(requesterId);
 
+  if (isOwner) {
+    return true;
+  }
+
   const user = await userRepository.findUserById(requesterId);
 
   if (!user) {
