@@ -283,7 +283,7 @@ const authorizeStaffOperation = async (requesterId, eventId, capability) => {
     await staffAssignmentRepository.findAssignmentAuthorization(
       requesterId,
       eventId,
-      event.organizerId,
+      organizer._id,
     );
 
   if (!assignment) {
@@ -302,4 +302,5 @@ module.exports = {
   listStaffOrganizerService,
   listStaffSpecificEventService,
   revokeAssignmentService,
+  authorizeStaffOperation,
 };
