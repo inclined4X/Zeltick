@@ -290,7 +290,7 @@ const authorizeStaffOperation = async (requesterId, eventId, capability) => {
     throw new AppError("You are not authorized for this event", 403);
   }
 
-  if (!canRolePerform(assignment.role, capability)) {
+  if (!staffCapability.canRolePerform(assignment.role, capability)) {
     throw new AppError("Your role does not permit this operation", 403);
   }
 
