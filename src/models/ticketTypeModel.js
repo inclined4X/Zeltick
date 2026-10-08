@@ -1,15 +1,14 @@
 const { default: mongoose } = require("mongoose");
 
-const ticketTypeSchema = new Schemaa({
+const ticketTypeSchema = new Schema({
   eventId: {
     type: mongoose.Schema.ObjectId,
     required: true,
-    unique: true,
   },
 
   name: {
     type: String,
-    miniLength: 2,
+    minLength: 2,
     required: true,
     trim: true,
     maxLength: 100,
