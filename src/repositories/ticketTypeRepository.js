@@ -8,17 +8,21 @@ const findTicketTypeById = async (ticketTypeId) => {
   return await TicketType.findById(ticketTypeId);
 };
 
-const findEventTicketType = async (eventId) => {
-  return await TicketType.find({
+const findActiveEventTicketType = async (eventId) => {
+  return await TicketType.findOne({
     eventId: eventId,
-    status: active,
+    status: "active",
   });
 };
 
 const findEventTicketTypes = async (eventId) => {
+  return await TicketType.find(eventId);
+};
+
+const findActiveTicketTypes = async (eventId) => {
   return await TicketType.find({
-    eventId: eventId,
-    status: active,
+    eventId,
+    status: "active",
   });
 };
 
@@ -53,4 +57,14 @@ const reserveInventory = async (ticketTypeId, quantity) => {
     },
     { new: true },
   );
+};
+
+module.exports = {
+  createTicketType,
+  findTicketTypeById,
+  findActiveEventTicketType,
+  findEventTicketTypes,
+  findActiveTicketTypes,
+  findTicketTypeByNameAndEvent,
+  reserveInventory,
 };
