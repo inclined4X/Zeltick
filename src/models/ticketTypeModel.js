@@ -1,69 +1,66 @@
-const { default: mongoose, Schema } = require("mongoose");
+const mongoose = require("mongoose");
 
-const ticketTypeSchema = new Schema(
+const ticketTypeSchema = new mongoose.Schema(
   {
     eventId: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Event",
       required: true,
-      ref: Event,
     },
 
     name: {
       type: String,
       minLength: 2,
-      required: true,
-      trim: true,
       maxLength: 100,
+      trim: true,
+      required: true,
     },
 
     price: {
       type: Number,
       required: true,
       validate: {
-        validator: function (v) {
-          return Number.isInteger(v);
-        },
+        validator: Number.isSafeInteger,
+        message: "Price must be a safe integer in pesewas",
       },
-      min: [0, "Price must be a positive number"],
+      min: [0, "Price cannot be negative"],
     },
 
     quantityTotal: {
       type: Number,
       required: true,
       validate: {
-        validator: function (v) {
-          return Number.isInteger(v);
-        },
+        validator: Number.isSafeInteger,
+        message: "Total quantity must be a safe integer",
       },
-      min: [0, "Quantity total must be a positive number"],
+      min: [1, "Total capacity must be at least one"],
     },
 
     quantityHeld: {
       type: Number,
-      required: true,
+      default: 0,
       validate: {
-        validator: function (v) {
-          return Number.isInteger(v);
-        },
+        validator: Number.isSafeInteger,
+        message: "Held quantity must be a safe integer",
       },
-      min: [0, "Quantity held must be a positive number"],
+      min: [0, "Held quantity cannot be negative"],
     },
 
     quantitySold: {
       type: Number,
-      required: true,
+      default: 0,
       validate: {
-        validator: function (v) {
-          return Number.isInteger(v);
-        },
+        validator: Number.isSafeInteger,
+        message: "Sold quantity must be a safe integer",
       },
-      min: [0, "Quantity sold must be a positive number"],
+      min: [0, "Sold quantity cannot be negative"],
     },
 
     status: {
       type: String,
       enum: ["active", "inactive"],
       default: "active",
+      required: true,
     },
   },
   {
@@ -71,5 +68,12 @@ const ticketTypeSchema = new Schema(
   },
 );
 
+ticketTypeSchema.index({ eventId: 1, name: 1 }, { unique: true });
+
+ticketTypeSchema.virtual("quantityAvailable").get(function () {
+  return this.quantityTotal - this.quantityHeld - this.quantitySold;
+});
+
 const TicketType = mongoose.model("TicketType", ticketTypeSchema);
+
 module.exports = TicketType;
