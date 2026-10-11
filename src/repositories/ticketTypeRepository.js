@@ -16,7 +16,7 @@ const findActiveEventTicketType = async (eventId) => {
 };
 
 const findEventTicketTypes = async (eventId) => {
-  return await TicketType.find(eventId);
+  return await TicketType.find({ eventId });
 };
 
 const findActiveTicketTypes = async (eventId) => {
