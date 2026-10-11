@@ -11,21 +11,37 @@ const createTicketType = async (userId, eventId, ticketTypeData) => {
     throw new AppError("Ticket types cannot be created for this event", 400);
   }
 
-  const ticketTypeName =
+  const { name, price, quantityTotal } = ticketTypeData;
+
+  if (typeof name !== "string" || !name.trim()) {
+    throw new AppError("Ticket type name is required", 400);
+  }
+
+  const trimmedName = name.trim();
+
+  if (!Number.isSafeInteger(price) || price < 0) {
+    throw new AppError("Price must be a non-negative integer in pesewas", 400);
+  }
+
+  if (!Number.isSafeInteger(quantityTotal) || quantityTotal < 1) {
+    throw new AppError("Total quantity must be a positive integer", 400);
+  }
+
+  const existingTicketType =
     await ticketTypeRepository.findTicketTypeByNameAndEvent(
       eventId,
-      ticketTypeData.name,
+      trimmedName,
     );
 
-  if (ticketTypeName) {
+  if (existingTicketType) {
     throw new AppError("This ticket type already exist", 409);
   }
 
   const ticketTypeDetails = {
     eventId: event._id,
-    name: ticketTypeData.name,
-    price: ticketTypeData.price,
-    quantityTotal: ticketTypeData.quantityTotal,
+    name: trimmedName,
+    price,
+    quantityTotal,
   };
 
   return await ticketTypeRepository.createTicketType(ticketTypeDetails);
