@@ -24,4 +24,12 @@ router.get(
   ticketTypeController.listOrganizerEventTicketTypes,
 );
 
+router.patch(
+  "/events/:eventId/ticket-types/:ticketTypeId",
+  authenticate,
+  ticketTypeValidation.validateUpdateTicketType,
+  validate,
+  ticketTypeController.updateEventTicketType,
+);
+
 module.exports = router;
