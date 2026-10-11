@@ -8,6 +8,13 @@ const findTicketTypeById = async (ticketTypeId) => {
   return await TicketType.findById(ticketTypeId);
 };
 
+const findTicketTypeByIdAndEvent = async (ticketTypeId, eventId) => {
+  return await TicketType.findOne({
+    _id: ticketTypeId,
+    eventId,
+  });
+};
+
 const findActiveEventTicketType = async (eventId) => {
   return await TicketType.findOne({
     eventId: eventId,

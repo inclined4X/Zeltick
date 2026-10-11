@@ -71,6 +71,8 @@ const listPublicEventTicketTypes = async (eventId) => {
   return publicActiveTicketTypes;
 };
 
+const updateEventTicketType = async (userId, updateData) => {};
+
 module.exports = {
   createTicketType,
   listOrganizerEventTicketTypes,
