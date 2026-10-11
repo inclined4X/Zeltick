@@ -19,14 +19,6 @@ const createTicketType = async (userId, eventId, ticketTypeData) => {
 
   const trimmedName = name.trim();
 
-  if (!Number.isSafeInteger(price) || price < 0) {
-    throw new AppError("Price must be a non-negative integer in pesewas", 400);
-  }
-
-  if (!Number.isSafeInteger(quantityTotal) || quantityTotal < 1) {
-    throw new AppError("Total quantity must be a positive integer", 400);
-  }
-
   const existingTicketType =
     await ticketTypeRepository.findTicketTypeByNameAndEvent(
       eventId,
