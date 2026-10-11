@@ -61,8 +61,32 @@ const listPublicEventTicketTypes = async (req, res, next) => {
   }
 };
 
+const updateEventTicketType = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const eventId = req.params.eventId;
+    const ticketTypeId = req.params.ticketTypeId;
+    const updateData = req.body;
+
+    const updatedTicketType = await ticketTypeService.updateEventTicketType(
+      userId,
+      eventId,
+      ticketTypeId,
+      updateData,
+    );
+
+    return res.status(200).json({
+      status: "success",
+      data: ticketTypeSerializer.toOrganizerTicketType(updatedTicketType),
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createTicketType,
   listOrganizerEventTicketTypes,
   listPublicEventTicketTypes,
+  updateEventTicketType,
 };
