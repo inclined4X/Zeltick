@@ -38,3 +38,7 @@ const createTicketType = async (userId, eventId, ticketTypeData) => {
 
   return await ticketTypeRepository.createTicketType(ticketTypeDetails);
 };
+
+module.exports = {
+  createTicketType,
+};
