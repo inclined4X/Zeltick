@@ -69,6 +69,7 @@ const reserveInventory = async (ticketTypeId, quantity) => {
 module.exports = {
   createTicketType,
   findTicketTypeById,
+  findTicketTypeByIdAndEvent,
   findActiveEventTicketType,
   findEventTicketTypes,
   findActiveTicketTypes,
