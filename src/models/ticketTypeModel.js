@@ -16,6 +16,12 @@ const ticketTypeSchema = new mongoose.Schema(
       required: true,
     },
 
+    normalizedName: {
+      type: String,
+      required: true,
+      select: false,
+    },
+
     price: {
       type: Number,
       required: true,

@@ -336,4 +336,5 @@ module.exports = {
   publishEvent,
   cancelEvent,
   completeEvent,
+  getOwnedEvent,
 };
