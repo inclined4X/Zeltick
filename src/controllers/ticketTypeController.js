@@ -22,4 +22,25 @@ const createTicketType = async (req, res, next) => {
   }
 };
 
+const listOrganizerEventTicketTypes = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const eventId = req.params.eventId;
+
+    const ticketTypes = await ticketTypeService.listOrganizerEventTicketTypes(
+      userId,
+      eventId,
+    );
+
+    return res.status(200).json({
+      status: "success",
+      data: ticketTypes.map((ticketType) =>
+        ticketTypeSerializer.toOrganizerTicketType(ticketType),
+      ),
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = { createTicketType };
