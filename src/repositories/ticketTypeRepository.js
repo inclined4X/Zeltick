@@ -29,7 +29,7 @@ const findActiveTicketTypes = async (eventId) => {
 const findTicketTypeByNameAndEvent = async (eventId, name) => {
   return await TicketType.findOne({
     eventId: eventId,
-    name: name,
+    normalizedName: name.trim().toLowerCase(),
   });
 };
 
