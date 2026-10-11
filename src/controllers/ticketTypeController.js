@@ -88,7 +88,7 @@ const deactivateEventTicketType = async (req, res, next) => {
   try {
     const userId = req.user._id;
     const eventId = req.params.eventId;
-    const ticketTypeId = req.params.ticketType;
+    const ticketTypeId = req.params.ticketTypeId;
 
     const ticketType = await ticketTypeService.deactivateEventTicketType(
       userId,

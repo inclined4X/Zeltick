@@ -33,7 +33,7 @@ router.patch(
 );
 
 router.patch(
-  "/events/:eventId/ticket-types/deactivate",
+  "/events/:eventId/ticket-types/:ticketTypeId/deactivate",
   authenticate,
   ticketTypeController.deactivateEventTicketType,
 );
