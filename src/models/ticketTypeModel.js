@@ -80,7 +80,7 @@ ticketTypeSchema.pre("validate", function () {
   }
 });
 
-ticketTypeSchema.index({ eventId: 1, name: 1 }, { unique: true });
+ticketTypeSchema.index({ eventId: 1, normalizedName: 1 }, { unique: true });
 
 ticketTypeSchema.virtual("quantityAvailable").get(function () {
   return this.quantityTotal - this.quantityHeld - this.quantitySold;
