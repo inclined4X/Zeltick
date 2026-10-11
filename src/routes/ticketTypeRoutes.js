@@ -13,4 +13,9 @@ router.post(
   ticketTypeController.createTicketType,
 );
 
+router.get(
+  "/events/:eventId/ticket-types",
+  ticketTypeController.listPublicEventTicketTypes,
+);
+
 module.exports = router;
