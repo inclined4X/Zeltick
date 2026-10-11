@@ -180,9 +180,37 @@ const updateEventTicketType = async (
   return ticketType;
 };
 
+const deactivateEventTicketType = async (userId, eventId, ticketTypeId) => {
+  if (!mongoose.isValidObjectId(ticketTypeId)) {
+    throw new AppError("Ticket type Id is invalid", 400);
+  }
+
+  await eventService.getOwnedEvent(eventId, userId);
+
+  const ticketType = await ticketTypeRepository.findTicketTypeByIdAndEvent(
+    ticketTypeId,
+    eventId,
+  );
+
+  if (!ticketType) {
+    throw new AppError("Ticket type does not exist", 404);
+  }
+
+  if (ticketType.status !== "active") {
+    throw new AppError("Ticket type status is already inactive", 409);
+  }
+
+  ticketType.status = "inactive";
+
+  await ticketType.save();
+
+  return ticketType;
+};
+
 module.exports = {
   createTicketType,
   listOrganizerEventTicketTypes,
   listPublicEventTicketTypes,
   updateEventTicketType,
+  deactivateEventTicketType,
 };
