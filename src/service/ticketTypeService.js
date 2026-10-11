@@ -39,6 +39,16 @@ const createTicketType = async (userId, eventId, ticketTypeData) => {
   return await ticketTypeRepository.createTicketType(ticketTypeDetails);
 };
 
+const listOrganizerEventTicketTypes = async (userId, eventId) => {
+  await eventService.getOwnedEvent(eventId, userId);
+
+  const eventTicketTypes =
+    await ticketTypeRepository.findActiveEventTicketType(eventId);
+
+  return eventTicketTypes;
+};
+
 module.exports = {
   createTicketType,
+  listOrganizerEventTicketTypes,
 };
