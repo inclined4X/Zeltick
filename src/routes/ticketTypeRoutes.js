@@ -18,4 +18,10 @@ router.get(
   ticketTypeController.listPublicEventTicketTypes,
 );
 
+router.get(
+  "/organizer/events/:eventId/ticket-types",
+  authenticate,
+  ticketTypeController.listOrganizerEventTicketTypes,
+);
+
 module.exports = router;
