@@ -32,4 +32,10 @@ router.patch(
   ticketTypeController.updateEventTicketType,
 );
 
+router.patch(
+  "/events/:eventId/ticket-types/deactivate",
+  authenticate,
+  ticketTypeController.deactivateEventTicketType,
+);
+
 module.exports = router;
