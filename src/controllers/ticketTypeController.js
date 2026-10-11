@@ -84,9 +84,31 @@ const updateEventTicketType = async (req, res, next) => {
   }
 };
 
+const deactivateEventTicketType = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const eventId = req.params.eventId;
+    const ticketTypeId = req.params.ticketType;
+
+    const ticketType = await ticketTypeService.deactivateEventTicketType(
+      userId,
+      eventId,
+      ticketTypeId,
+    );
+
+    return res.status(200).json({
+      status: "success",
+      data: ticketTypeSerializer.toOrganizerTicketType(ticketType),
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createTicketType,
   listOrganizerEventTicketTypes,
   listPublicEventTicketTypes,
   updateEventTicketType,
+  deactivateEventTicketType,
 };
