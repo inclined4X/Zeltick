@@ -74,6 +74,12 @@ const ticketTypeSchema = new mongoose.Schema(
   },
 );
 
+ticketTypeSchema.pre("validate", function () {
+  if (this.name) {
+    this.normalizedName = this.name.trim().toLowerCase();
+  }
+});
+
 ticketTypeSchema.index({ eventId: 1, name: 1 }, { unique: true });
 
 ticketTypeSchema.virtual("quantityAvailable").get(function () {
