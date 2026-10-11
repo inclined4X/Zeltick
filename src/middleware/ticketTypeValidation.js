@@ -29,6 +29,19 @@ const validateCreateTicketType = [
     .withMessage("Total ticket quantity must be a positive safe integer")
     .bail()
     .toInt(),
+
+  body().custom((_, { req }) => {
+    const allowedFields = ["name", "price", "quantityTotal"];
+    const unexpectedFields = Object.keys(req.body).filter(
+      (field) => !allowedFields.includes(field),
+    );
+
+    if (unexpectedFields.length > 0) {
+      throw new Error(`Unexpected field(s): ${unexpectedFields.join(", ")}`);
+    }
+
+    return true;
+  }),
 ];
 
 module.exports = { validateCreateTicketType };
