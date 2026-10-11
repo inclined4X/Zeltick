@@ -1,4 +1,5 @@
 const ticketTypeService = require("../service/ticketTypeService");
+const ticketTypeSerializer = require("../utils/ticketTypeSerializer");
 
 const createTicketType = async (req, res, next) => {
   try {
@@ -14,9 +15,11 @@ const createTicketType = async (req, res, next) => {
 
     return res.status(201).json({
       status: "success",
-      data: ticketType,
+      data: ticketTypeSerializer.toOrganizerTicketType(ticketType),
     });
   } catch (err) {
     next(err);
   }
 };
+
+module.exports = { createTicketType };
