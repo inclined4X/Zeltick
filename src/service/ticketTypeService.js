@@ -170,7 +170,7 @@ const updateEventTicketType = async (
     ticketType.quantityHeld + ticketType.quantitySold
   ) {
     throw new AppError(
-      "Total quantity cannot be less than tickets held plus tickets sold",
+      "The Total quantity cannot be less than tickets held plus tickets sold",
       400,
     );
   }
