@@ -85,15 +85,17 @@ const ticketHoldSchema = new mongoose.Schema(
   },
 );
 
-ticketHoldSchema.index({
-  status: 1,
-  expiresAt: 1,
-});
+ticketHoldSchema.index({ status: 1, expiresAt: 1 });
 
-ticketHoldSchema.index({
-  userId: 1,
-  status: 1,
-});
+ticketHoldSchema.index({ eventId: 1, status: 1 });
+
+ticketHoldSchema.index(
+  { userId: 1, eventId: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { status: "active" },
+  },
+);
 
 const TicketHold = mongoose.model("TicketHold", ticketHoldSchema);
 
