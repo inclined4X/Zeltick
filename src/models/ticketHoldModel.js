@@ -41,6 +41,12 @@ const ticketHoldSchema = new mongoose.Schema(
       required: true,
     },
 
+    eventId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Event",
+      required: true,
+    },
+
     items: {
       type: [ticketHoldItemSchema],
       required: true,
