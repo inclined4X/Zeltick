@@ -80,6 +80,8 @@ const createTicketHold = async (userId, eventId, items) => {
   const session = await mongoose.startSession();
 
   try {
+    let createdHold;
+
     await session.withTransaction(async () => {
       for (const validatedItem of validatedItems) {
         const reservedTicketType =
@@ -92,7 +94,7 @@ const createTicketHold = async (userId, eventId, items) => {
         if (!reservedTicketType) {
           throw new AppError(
             "Insufficient inventory or ticket type is no longer active",
-            400,
+            409,
           );
         }
       }
