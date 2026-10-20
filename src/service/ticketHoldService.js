@@ -96,7 +96,22 @@ const createTicketHold = async (userId, eventId, items) => {
           );
         }
       }
+
+      const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+
+      createdHold = await ticketHoldRepository.createTicketHold(
+        {
+          userId,
+          eventId,
+          items: validatedItems,
+          status: "active",
+          expiresAt,
+        },
+        session,
+      );
     });
+
+    return createdHold;
   } finally {
     await session.endSession();
   }
