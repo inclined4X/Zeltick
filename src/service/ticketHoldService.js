@@ -87,6 +87,7 @@ const createTicketHold = async (userId, eventId, items) => {
         const reservedTicketType =
           await ticketHoldRepository.reserveTicketTypeInventory(
             validatedItem.ticketTypeId,
+            eventId,
             validatedItem.quantity,
             session,
           );
