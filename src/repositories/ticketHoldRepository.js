@@ -1,6 +1,14 @@
 const TicketHold = require("../models/ticketHoldModel");
 const TicketType = require("../models/ticketTypeModel");
 
+async function findActiveHoldByUserAndEvent(userId, eventId, session) {
+  return TicketHold.findOne({
+    userId,
+    eventId,
+    status: "active",
+  }).session(session);
+}
+
 async function reserveTicketTypeInventory(
   ticketTypeId,
   eventId,
