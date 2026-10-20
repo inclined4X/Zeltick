@@ -1,21 +1,34 @@
 const TicketHold = require("../models/ticketHoldModel");
 const TicketType = require("../models/ticketTypeModel");
 
-async function findActiveHoldByUserAndEvent(userId, eventId, session) {
-  return TicketHold.findOne({
+const findActiveHoldByUserAndEvent = async (userId, eventId, session) => {
+  return await TicketHold.findOne({
     userId,
     eventId,
     status: "active",
   }).session(session);
-}
+};
 
-async function reserveTicketTypeInventory(
+const updateHoldStatus = async (holdId, expectedStatus, newStatus, session) => {
+  return await TicketHold.updateOne(
+    {
+      _id: holdId,
+      status: expectedStatus,
+    },
+    {
+      $set: { status: newStatus },
+    },
+    { session },
+  );
+};
+
+const reserveTicketTypeInventory = async (
   ticketTypeId,
   eventId,
   quantity,
   session,
-) {
-  return TicketType.findOneAndUpdate(
+) => {
+  return await TicketType.findOneAndUpdate(
     {
       _id: ticketTypeId,
       eventId,
@@ -40,7 +53,7 @@ async function reserveTicketTypeInventory(
       session,
     },
   );
-}
+};
 
 const createTicketHold = async (holdData, session) => {
   const [ticketHold] = await TicketHold.create([holdData], { session });
@@ -48,6 +61,7 @@ const createTicketHold = async (holdData, session) => {
 };
 
 module.exports = {
+  findActiveHoldByUserAndEvent,
   reserveTicketTypeInventory,
   createTicketHold,
 };
