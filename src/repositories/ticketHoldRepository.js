@@ -1,9 +1,16 @@
+const TicketHold = require("../models/ticketHoldModel");
 const TicketType = require("../models/ticketTypeModel");
 
-async function reserveTicketTypeInventory(ticketTypeId, quantity, session) {
+async function reserveTicketTypeInventory(
+  ticketTypeId,
+  eventId,
+  quantity,
+  session,
+) {
   return TicketType.findOneAndUpdate(
     {
       _id: ticketTypeId,
+      eventId,
       status: "active",
       $expr: {
         $gte: [
