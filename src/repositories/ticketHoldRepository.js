@@ -27,6 +27,12 @@ async function reserveTicketTypeInventory(ticketTypeId, quantity, session) {
   );
 }
 
+const createTicketHold = async (holdData, session) => {
+  const [ticketHold] = await TicketHold.create([holdData], { session });
+  return ticketHold;
+};
+
 module.exports = {
   reserveTicketTypeInventory,
+  createTicketHold,
 };
