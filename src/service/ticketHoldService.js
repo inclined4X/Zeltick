@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const AppError = require("../errors/appError");
 const eventRepository = require("../repositories/eventRepository");
 const ticketTypeRepository = require("../repositories/ticketTypeRepository");
@@ -72,8 +72,8 @@ const createTicketHold = async (userId, eventId, items) => {
 
     validatedItems.push({
       ticketTypeId: ticketType._id,
-      unitPrice: ticketType.price,
       quantity: item.quantity,
+      unitPrice: ticketType.price,
     });
   }
 
@@ -93,24 +93,62 @@ const createTicketHold = async (userId, eventId, items) => {
           session,
         );
 
-      for (const validatedItem of validatedItems) {
+      if (existingHold) {
+        if (existingHold.expiresAt > now) {
+          throw new AppError(
+            "You already have an active hold for this event",
+            409,
+          );
+        }
+
+        const statusResult = await ticketHoldRepository.updateHoldStatus(
+          existingHold._id,
+          "active",
+          "expired",
+          session,
+        );
+
+        if (statusResult.modifiedCount !== 1) {
+          throw new AppError(
+            "The existing hold could not be expired safely",
+            409,
+          );
+        }
+
+        for (const item of existingHold.items) {
+          const releaseResult =
+            await ticketHoldRepository.releaseTicketTypeInventory(
+              item.ticketTypeId,
+              existingHold.eventId,
+              item.quantity,
+              session,
+            );
+
+          if (releaseResult.modifiedCount !== 1) {
+            throw new AppError(
+              "Could not release the expired hold's inventory",
+              409,
+            );
+          }
+        }
+      }
+
+      for (const item of validatedItems) {
         const reservedTicketType =
           await ticketHoldRepository.reserveTicketTypeInventory(
-            validatedItem.ticketTypeId,
+            item.ticketTypeId,
             eventId,
-            validatedItem.quantity,
+            item.quantity,
             session,
           );
 
         if (!reservedTicketType) {
           throw new AppError(
-            "Insufficient inventory or ticket type is no longer active",
+            "Insufficient inventory or ticket type is no longer available",
             409,
           );
         }
       }
-
-      const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
       createdHold = await ticketHoldRepository.createTicketHold(
         {
@@ -125,6 +163,12 @@ const createTicketHold = async (userId, eventId, items) => {
     });
 
     return createdHold;
+  } catch (error) {
+    if (error.code === 11000) {
+      throw new AppError("You already have an active hold for this event", 409);
+    }
+
+    throw error;
   } finally {
     await session.endSession();
   }
