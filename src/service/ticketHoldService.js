@@ -79,6 +79,9 @@ const createTicketHold = async (userId, eventId, items) => {
 
   const session = await mongoose.startSession();
 
+  const now = new Date();
+  const expiresAt = new Date(now.getTime() + 10 * 60 * 1000);
+
   let createdHold;
 
   try {
