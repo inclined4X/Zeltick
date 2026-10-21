@@ -55,6 +55,25 @@ const reserveTicketTypeInventory = async (
   );
 };
 
+const releaseTicketTypeInventory = async (
+  ticketTypeId,
+  eventId,
+  quantity,
+  session,
+) => {
+  return await TicketType.updateOne(
+    {
+      _id: ticketTypeId,
+      eventId,
+      quantityHeld: { $gte: quantity },
+    },
+    {
+      $inc: { quantityHeld: -quantity },
+    },
+    { session },
+  );
+};
+
 const createTicketHold = async (holdData, session) => {
   const [ticketHold] = await TicketHold.create([holdData], { session });
   return ticketHold;
