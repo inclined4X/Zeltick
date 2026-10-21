@@ -83,6 +83,13 @@ const createTicketHold = async (userId, eventId, items) => {
     let createdHold;
 
     await session.withTransaction(async () => {
+      const existingHold =
+        await ticketHoldRepository.findActiveHoldByUserAndEvent(
+          userId,
+          eventId,
+          session,
+        );
+
       for (const validatedItem of validatedItems) {
         const reservedTicketType =
           await ticketHoldRepository.reserveTicketTypeInventory(
