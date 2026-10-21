@@ -79,9 +79,9 @@ const createTicketHold = async (userId, eventId, items) => {
 
   const session = await mongoose.startSession();
 
-  try {
-    let createdHold;
+  let createdHold;
 
+  try {
     await session.withTransaction(async () => {
       const existingHold =
         await ticketHoldRepository.findActiveHoldByUserAndEvent(
