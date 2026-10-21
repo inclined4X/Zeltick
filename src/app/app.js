@@ -5,7 +5,7 @@ const eventRoutes = require("../routes/eventRoutes");
 const authRoutes = require("../routes/authRoutes");
 const organizerRoutes = require("../routes/organizerRoutes");
 const staffAssignmentRoutes = require("../routes/staffAssignmentRoutes");
-const ticketHoldRoutes = require("./routes/ticketHoldRoutes");
+const ticketHoldRoutes = require("../routes/ticketHoldRoutes");
 
 const session = require("express-session");
 const { sessionSecret, mongodbUri, nodeEnvironment } = require("../config/env");
