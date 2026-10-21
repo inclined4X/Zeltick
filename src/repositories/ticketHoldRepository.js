@@ -83,4 +83,6 @@ module.exports = {
   findActiveHoldByUserAndEvent,
   reserveTicketTypeInventory,
   createTicketHold,
+  releaseTicketTypeInventory,
+  updateHoldStatus,
 };
