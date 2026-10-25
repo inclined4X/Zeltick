@@ -9,6 +9,13 @@ const findActiveHoldByUserAndEvent = async (userId, eventId, session) => {
   }).session(session);
 };
 
+const findExpiredActiveHolds = async (now = new Date()) => {
+  return await TicketHold.find({
+    status: "active",
+    expiresAt: { $lte: now },
+  });
+};
+
 const updateHoldStatus = async (holdId, expectedStatus, newStatus, session) => {
   return await TicketHold.updateOne(
     {
