@@ -92,4 +92,5 @@ module.exports = {
   createTicketHold,
   releaseTicketTypeInventory,
   updateHoldStatus,
+  findExpiredActiveHolds,
 };
