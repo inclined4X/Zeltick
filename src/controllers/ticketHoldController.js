@@ -1,4 +1,4 @@
-const ticketHoldService = require("../services/ticketHoldService");
+const ticketHoldService = require("../service/ticketHoldService");
 
 const createTicketHold = async (req, res) => {
   const userId = req.user._id;
